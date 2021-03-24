@@ -1,22 +1,22 @@
 import 'package:matrix/components/constant.dart';
-import 'package:matrix/screens/infoScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:matrix/screens/offline_home.dart';
 
-class MyHeader extends StatefulWidget {
+class HomeHeader extends StatefulWidget {
   final String image;
   final String textTop;
   final String textBottom;
   final double offset;
-  const MyHeader(
+  const HomeHeader(
       {Key key, this.image, this.textTop, this.textBottom, this.offset})
       : super(key: key);
 
   @override
-  _MyHeaderState createState() => _MyHeaderState();
+  _HomeHeaderState createState() => _HomeHeaderState();
 }
 
-class _MyHeaderState extends State<MyHeader> {
+class _HomeHeaderState extends State<HomeHeader> {
   @override
   Widget build(BuildContext context) {
     return ClipPath(
@@ -41,18 +41,28 @@ class _MyHeaderState extends State<MyHeader> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return InfoScreen();
+            PopupMenuButton(
+              child: SvgPicture.asset("assets/icons/menu.svg"),
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  child: GestureDetector(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Icon(
+                          Icons.offline_bolt,
+                          color: Colors.black87,
+                        ),
+                        Text("Saved News")
+                      ],
+                    ),
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => MyOfflineHomePage()));
                     },
                   ),
-                );
-              },
-              child: SvgPicture.asset("assets/icons/menu.svg"),
+                ),
+              ],
             ),
             SizedBox(height: 20),
             Expanded(

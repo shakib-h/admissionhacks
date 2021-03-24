@@ -1,72 +1,96 @@
 import 'dart:async';
+import 'dart:convert';
 
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:matrix/components/constant.dart';
-import 'package:matrix/components/heading.dart';
-import 'package:matrix/screens/article.dart';
 import 'package:matrix/screens/home.dart';
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class AdmissionNews extends StatelessWidget {
-  const AdmissionNews({
-    Key key,
-  }) : super(key: key);
+import 'article.dart';
+
+class MyOfflineHomePage extends StatefulWidget {
+  @override
+  _MyOfflineHomePageState createState() => _MyOfflineHomePageState();
+}
+
+class _MyOfflineHomePageState extends State<MyOfflineHomePage> {
+  var cachedData = List();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance
+        .addPostFrameCallback((timeStamp) => loopOnceAtStart(context));
+  }
+
+  Future<SharedPreferences> loopOnceAtStart(context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs;
+  }
+
+  List reverse(Set<String> l) {
+    List rl = [];
+    List _l = l.toList();
+    for (int i = _l.length - 1; i >= 0; i--) {
+      rl.add(_l[i]);
+    }
+
+    return rl;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Heading(
-          heading: "Admission News",
-          ctatext: "See details",
-          onPressed: null,
-        ),
-        Container(
-          margin: EdgeInsets.only(top: 20),
-          padding: EdgeInsets.all(20),
-          height: 178,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                offset: Offset(0, 10),
-                blurRadius: 30,
-                color: kShadowColor,
+    return FutureBuilder(
+      future: loopOnceAtStart(context),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          SharedPreferences prefs = snapshot.data;
+          reverse(prefs.getKeys()).forEach((element) {
+            List<String> prefResolve = prefs.getStringList(element);
+            cachedData.add({
+              "title": prefResolve[0],
+              "sub-title": prefResolve[1],
+              "body": prefResolve[2],
+              "date": prefResolve[3],
+              "time": prefResolve[4],
+              "image-base64": prefResolve[5],
+            });
+          });
+          return Scaffold(
+            appBar: AppBar(
+              // Here we take the value from the MyHomePage object that was created by
+              // the App.build method, and use it to set our appbar title.
+              title: Text(
+                "SAVED",
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 3,
+                ),
               ),
-            ],
-          ),
-          child: Container(
-            child: FutureBuilder(
-              future:
-                  FirebaseFirestore.instance.collection('news-articles').get(),
-              builder: (context, snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.waiting:
-                  case ConnectionState.none:
-                    return LinearProgressIndicator();
-                  default:
-                    return ListView.separated(
-                      shrinkWrap: true,
-                      physics: BouncingScrollPhysics(),
-                      separatorBuilder: (context, index) => Divider(
-                        indent: 10,
-                        endIndent: 10,
-                        color: Colors.black26,
-                      ),
-                      itemCount: snapshot.data.docs.length,
-                      itemBuilder: (_, index) => NewsTile(
-                        data: snapshot.data.docs[index],
-                      ),
-                    );
-                }
-              },
+              backgroundColor: Colors.black,
             ),
-          ),
-        ),
-      ],
+            body: Container(
+              child: ListView.separated(
+                physics: BouncingScrollPhysics(),
+                separatorBuilder: (context, index) => Divider(
+                  indent: 10,
+                  endIndent: 10,
+                  color: Colors.black26,
+                ),
+                itemCount: cachedData.length,
+                itemBuilder: (_, index) => NewsTile(
+                  data: cachedData[index],
+                ),
+              ),
+            ),
+          );
+        } else {
+          return Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+      },
     );
   }
 }
@@ -79,7 +103,7 @@ class NewsTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Completer<Size> completer = Completer();
-    Image image = Image.network(data['image-url']);
+    Image image = Image.memory(base64Decode(data["image-base64"]));
     image.image.resolve(ImageConfiguration()).addListener(
       ImageStreamListener(
         (ImageInfo image, bool synchronousCall) {
@@ -113,7 +137,8 @@ class NewsTileSmall extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String titleData, subTitleData, imageUrlData, dateData;
+    String titleData, subTitleData, dateData;
+    Image imageData;
 
     titleData = data['title'];
     if ((data['sub-title'] != null) && (data['sub-title'] != '')) {
@@ -122,7 +147,7 @@ class NewsTileSmall extends StatelessWidget {
       subTitleData = data[
           'body']; // Overflow attribute will not allow full body to appear.
     }
-    imageUrlData = data['image-url'];
+    imageData = Image.memory(base64Decode(data["image-base64"]));
     dateData = data['date'];
 
     return FlatButton(
@@ -175,15 +200,8 @@ class NewsTileSmall extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Hero(
-                  tag: generateMd5(titleData),
-                  child: CachedNetworkImage(
-                    imageUrl: imageUrlData,
-                    placeholder: (context, url) => CircularProgressIndicator(),
-                    errorWidget: (context, url, error) => Icon(
-                      Icons.broken_image,
-                      size: 40,
-                    ),
-                  ),
+                  tag: generateMd5(titleData + "offline"),
+                  child: imageData,
                 ),
               ),
             )
@@ -191,10 +209,10 @@ class NewsTileSmall extends StatelessWidget {
         ),
       ),
       onPressed: () {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => ArticlePage(data: data),
+            builder: (context) => ArticlePage(data: data, offline: true),
           ),
         );
       },
@@ -209,7 +227,8 @@ class NewsTileLarge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String titleData, subTitleData, imageUrlData, dateData;
+    String titleData, subTitleData, dateData;
+    Image imageData;
     TextOverflow overflowType;
     titleData = data['title'];
     if (data['sub-title'] != null && data['sub-title'] != '') {
@@ -221,7 +240,7 @@ class NewsTileLarge extends StatelessWidget {
       // Overflow attribute will not allow
       // full body to appear in subtitle.
     }
-    imageUrlData = data['image-url'];
+    imageData = Image.memory(base64Decode(data["image-base64"]));
     dateData = data['date'];
 
     return Container(
@@ -237,15 +256,8 @@ class NewsTileLarge extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: Hero(
-                  tag: generateMd5(titleData),
-                  child: CachedNetworkImage(
-                    imageUrl: imageUrlData,
-                    placeholder: (context, url) => LinearProgressIndicator(),
-                    errorWidget: (context, url, error) => Icon(
-                      Icons.broken_image,
-                      size: 80,
-                    ),
-                  ),
+                  tag: generateMd5(titleData + "offline"),
+                  child: imageData,
                 ),
               ),
               Container(
@@ -283,10 +295,11 @@ class NewsTileLarge extends StatelessWidget {
             ],
           ),
           onPressed: () {
-            Navigator.push(
+            Navigator.pushReplacement(
+              // Using pushReplacement instead of push to rebuild this page when pressing back-button in-case user attempts saved item delete.
               context,
               MaterialPageRoute(
-                builder: (context) => ArticlePage(data: data),
+                builder: (context) => ArticlePage(data: data, offline: true),
               ),
             );
           },
