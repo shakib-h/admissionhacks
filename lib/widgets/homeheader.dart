@@ -82,7 +82,7 @@ class _HomeHeaderState extends State<HomeHeader> {
                     right: 35,
                     child: Text(
                       "${widget.textTop}",
-                      style: kHeadingTextStyle.copyWith(
+                      style: tHeadingTextStyle.copyWith(
                         color: Colors.white,
                       ),
                     ),
@@ -92,7 +92,7 @@ class _HomeHeaderState extends State<HomeHeader> {
                     right: 35,
                     child: Text(
                       "${widget.textBottom}",
-                      style: kTagTextStyle.copyWith(
+                      style: tTagTextStyle.copyWith(
                         color: Colors.white,
                       ),
                     ),

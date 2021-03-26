@@ -45,7 +45,7 @@ class AdmissionNews extends StatelessWidget {
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
                 return LinearProgressIndicator(
-                  backgroundColor: kPrimaryColor,
+                  backgroundColor: tPrimaryColor,
                 );
               } else {
                 return ListView.separated(

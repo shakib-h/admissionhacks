@@ -19,14 +19,14 @@ class Heading extends StatelessWidget {
       children: <Widget>[
         Text(
           heading,
-          style: kTitleTextstyle,
+          style: tTitleTextstyle,
         ),
         new InkWell(
           onTap: onPressed,
           child: new Text(
             ctatext,
             style: TextStyle(
-              color: kPrimaryColor,
+              color: tPrimaryColor,
               fontWeight: FontWeight.w600,
             ),
           ),

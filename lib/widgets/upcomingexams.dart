@@ -46,7 +46,7 @@ class UpcomingExams extends StatelessWidget {
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
                 return LinearProgressIndicator(
-                  backgroundColor: kPrimaryColor,
+                  backgroundColor: tPrimaryColor,
                 );
               } else {
                 return ListView.separated(
@@ -89,11 +89,11 @@ class ExamTile extends StatelessWidget {
       children: [
         Text(
           data["title"],
-          style: kListTextStyle,
+          style: tListTextStyle,
         ),
         Text(
           "in " + examIn + " days | " + examDateFormat,
-          style: kListTextStyle,
+          style: tListTextStyle,
         ),
       ],
     );

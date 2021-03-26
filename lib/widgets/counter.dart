@@ -28,7 +28,7 @@ class Counter extends StatelessWidget {
             color: color,
           ),
         ),
-        Text(title, style: kSubTextStyle),
+        Text(title, style: tSubTextStyle),
       ],
     );
   }

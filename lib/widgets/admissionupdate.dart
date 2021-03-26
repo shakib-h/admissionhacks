@@ -19,12 +19,12 @@ class AdmissionUpdate extends StatelessWidget {
                 children: [
                   TextSpan(
                     text: "Admission Update\n",
-                    style: kTitleTextstyle,
+                    style: tTitleTextstyle,
                   ),
                   TextSpan(
-                    text: "Live Admission Status",
+                    text: "exam and circular",
                     style: TextStyle(
-                      color: kTextLightColor,
+                      color: tTextLightColor,
                     ),
                   ),
                 ],
@@ -55,7 +55,7 @@ class AdmissionUpdate extends StatelessWidget {
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return LinearProgressIndicator(
-                    backgroundColor: kPrimaryColor,
+                    backgroundColor: tPrimaryColor,
                   );
                 } else {
                   Map<String, dynamic> documentFields = snapshot.data.data();
@@ -63,22 +63,22 @@ class AdmissionUpdate extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Counter(
-                        color: kInfectedColor,
+                        color: tInfectedColor,
                         number: documentFields["admissionupdate"]["cluster"],
                         title: "Cluster",
                       ),
                       Counter(
-                        color: kDeathColor,
+                        color: tDeathColor,
                         number: documentFields["admissionupdate"]["published"],
                         title: "Published",
                       ),
                       Counter(
-                        color: kRecovercolor,
+                        color: tRecovercolor,
                         number: documentFields["admissionupdate"]["formfillup"],
                         title: "Form Fill Up",
                       ),
                       Counter(
-                        color: kDeathColor,
+                        color: tDeathColor,
                         number: documentFields["admissionupdate"]["ended"],
                         title: "Ended",
                       ),

@@ -21,7 +21,7 @@ class Dropdown extends StatelessWidget {
       child: Row(
         children: <Widget>[
           Dot(
-            color: kPrimaryColor,
+            color: tPrimaryColor,
           ),
           SizedBox(width: 20),
           Expanded(
