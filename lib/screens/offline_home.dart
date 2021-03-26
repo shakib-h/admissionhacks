@@ -50,8 +50,8 @@ class _MyOfflineHomePageState extends State<MyOfflineHomePage> {
               "title": prefResolve[0],
               "sub-title": prefResolve[1],
               "body": prefResolve[2],
-              "date": prefResolve[3],
-              "time": prefResolve[4],
+              //"date": prefResolve[3],
+              //"time": prefResolve[4],
               "image-base64": prefResolve[5],
             });
           });
@@ -212,7 +212,11 @@ class NewsTileSmall extends StatelessWidget {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => ArticlePage(data: data, offline: true),
+            builder: (context) => ArticlePage(
+              data: data,
+              offline: true,
+              title: "Saved Articles",
+            ),
           ),
         );
       },
@@ -299,7 +303,8 @@ class NewsTileLarge extends StatelessWidget {
               // Using pushReplacement instead of push to rebuild this page when pressing back-button in-case user attempts saved item delete.
               context,
               MaterialPageRoute(
-                builder: (context) => ArticlePage(data: data, offline: true),
+                builder: (context) => ArticlePage(
+                    data: data, offline: true, title: "Saved Articles"),
               ),
             );
           },

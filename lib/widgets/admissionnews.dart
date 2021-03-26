@@ -156,7 +156,10 @@ class NewsTile extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ArticlePage(data: data),
+            builder: (context) => ArticlePage(
+              data: data,
+              title: "Admission News",
+            ),
           ),
         );
       },

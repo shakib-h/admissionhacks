@@ -89,11 +89,11 @@ class ExamTile extends StatelessWidget {
       children: [
         Text(
           data["title"],
-          style: tListTextStyle,
+          //style: tListTextStyle,
         ),
         Text(
           "in " + examIn + " days | " + examDateFormat,
-          style: tListTextStyle,
+          //style: tListTextStyle,
         ),
       ],
     );

@@ -22,7 +22,7 @@ class AdmissionUpdate extends StatelessWidget {
                     style: tTitleTextstyle,
                   ),
                   TextSpan(
-                    text: "exam and circular",
+                    text: "exam and circular tracker",
                     style: TextStyle(
                       color: tTextLightColor,
                     ),

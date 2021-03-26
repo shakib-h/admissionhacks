@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:intl/intl.dart';
 import 'package:matrix/screens/offline_home.dart';
 import 'package:crypto/crypto.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -12,21 +13,25 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ArticlePage extends StatefulWidget {
-  ArticlePage({this.data, this.offline});
+  ArticlePage({this.data, this.offline, this.title});
 
-  final data, offline;
+  final data, offline, title;
 
   @override
   State<StatefulWidget> createState() {
-    return _ArticlePageState(data: data, offline: offline);
+    return _ArticlePageState(
+      data: data,
+      offline: offline,
+      title: title,
+    );
   }
 }
 
 class _ArticlePageState extends State<ArticlePage>
     with SingleTickerProviderStateMixin {
-  _ArticlePageState({this.data, this.offline});
+  _ArticlePageState({this.data, this.offline, this.title});
 
-  final data, offline;
+  final data, offline, title;
 
   double lineLength = 0;
 
@@ -88,10 +93,11 @@ class _ArticlePageState extends State<ArticlePage>
       // allow full body to appear.
     }
     imageUrlData = data['image-url'] ?? '';
-    bodyData = data['body'];
+    bodyData = data['body'].replaceAll("\\n", "\n");
+
     dateAndTimeData = <String>[
-      data['timestamp'].toDate().toString(),
-      data['timestamp'].toDate().toString(),
+      DateFormat("dd MMM").format(data['timestamp'].toDate()),
+      DateFormat.jm().format(data['timestamp'].toDate()),
     ];
 
     if (offline == true) {
@@ -122,7 +128,7 @@ class _ArticlePageState extends State<ArticlePage>
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text(
-          "ARTICLE",
+          title,
           style: TextStyle(letterSpacing: 3),
         ),
         leading: Padding(
