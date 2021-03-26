@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Splash extends StatefulWidget {
   @override
@@ -13,17 +14,14 @@ class SplashState extends State<Splash> {
     super.initState();
     Timer(Duration(milliseconds: 1800), () {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => MyHomePage()
-        )
-      );
+          MaterialPageRoute(builder: (context) => MyHomePage()));
     });
   }
 
   @override
   Widget build(BuildContext context) {
-
-    var introImage = Image.asset('images/splash.png');
+    var introImage =
+        SvgPicture.asset('assets/images/banner/undraw_studying_s3l7.svg');
 
     return Scaffold(
       body: Center(
@@ -32,7 +30,7 @@ class SplashState extends State<Splash> {
           children: <Widget>[
             introImage,
             Text(
-              "Crunchy Bytes",
+              "পড়তেছি",
               style: TextStyle(
                 fontWeight: FontWeight.w300,
                 fontSize: 30,

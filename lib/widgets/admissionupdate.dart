@@ -22,7 +22,7 @@ class AdmissionUpdate extends StatelessWidget {
                     style: kTitleTextstyle,
                   ),
                   TextSpan(
-                    text: "Newest update March 28",
+                    text: "Live Admission Status",
                     style: TextStyle(
                       color: kTextLightColor,
                     ),
@@ -54,7 +54,9 @@ class AdmissionUpdate extends StatelessWidget {
                   .get(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
-                  return new Text("Loading");
+                  return LinearProgressIndicator(
+                    backgroundColor: kPrimaryColor,
+                  );
                 } else {
                   Map<String, dynamic> documentFields = snapshot.data.data();
                   return Row(

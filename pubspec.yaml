@@ -37,6 +37,8 @@ dependencies:
   shared_preferences:
   network_image_to_byte:
   cached_network_image:
+  intl:
+  timeago:
 
 dev_dependencies:
   flutter_test:

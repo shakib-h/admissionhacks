@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +5,7 @@ import 'package:matrix/components/constant.dart';
 import 'package:matrix/components/heading.dart';
 import 'package:matrix/screens/article.dart';
 import 'package:matrix/screens/home.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class AdmissionNews extends StatelessWidget {
   const AdmissionNews({
@@ -19,13 +18,12 @@ class AdmissionNews extends StatelessWidget {
       children: [
         Heading(
           heading: "Admission News",
-          ctatext: "See details",
+          ctatext: "See more",
           onPressed: null,
         ),
         Container(
           margin: EdgeInsets.only(top: 20),
-          padding: EdgeInsets.all(20),
-          height: 178,
+          padding: EdgeInsets.all(10),
           width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
@@ -38,32 +36,34 @@ class AdmissionNews extends StatelessWidget {
               ),
             ],
           ),
-          child: Container(
-            child: FutureBuilder(
-              future:
-                  FirebaseFirestore.instance.collection('news-articles').get(),
-              builder: (context, snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.waiting:
-                  case ConnectionState.none:
-                    return LinearProgressIndicator();
-                  default:
-                    return ListView.separated(
-                      shrinkWrap: true,
-                      physics: BouncingScrollPhysics(),
-                      separatorBuilder: (context, index) => Divider(
-                        indent: 10,
-                        endIndent: 10,
-                        color: Colors.black26,
-                      ),
-                      itemCount: snapshot.data.docs.length,
-                      itemBuilder: (_, index) => NewsTile(
-                        data: snapshot.data.docs[index],
-                      ),
-                    );
-                }
-              },
-            ),
+          child: FutureBuilder(
+            future: FirebaseFirestore.instance
+                .collection('news-articles')
+                .limit(5)
+                .orderBy('timestamp', descending: true)
+                .get(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return LinearProgressIndicator(
+                  backgroundColor: kPrimaryColor,
+                );
+              } else {
+                return ListView.separated(
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  physics: BouncingScrollPhysics(),
+                  separatorBuilder: (context, index) => Divider(
+                    indent: 10,
+                    endIndent: 10,
+                    color: Colors.black26,
+                  ),
+                  itemCount: snapshot.data.docs.length,
+                  itemBuilder: (_, index) => NewsTile(
+                    data: snapshot.data.docs[index],
+                  ),
+                );
+              }
+            },
           ),
         ),
       ],
@@ -73,41 +73,6 @@ class AdmissionNews extends StatelessWidget {
 
 class NewsTile extends StatelessWidget {
   NewsTile({this.data});
-
-  final data;
-
-  @override
-  Widget build(BuildContext context) {
-    Completer<Size> completer = Completer();
-    Image image = Image.network(data['image-url']);
-    image.image.resolve(ImageConfiguration()).addListener(
-      ImageStreamListener(
-        (ImageInfo image, bool synchronousCall) {
-          var myImage = image.image;
-          Size size = Size(myImage.width.toDouble(), myImage.height.toDouble());
-          completer.complete(size);
-        },
-      ),
-    );
-    return FutureBuilder(
-      future: completer.future,
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (snapshot.hasData) {
-          if (snapshot.data.width / snapshot.data.height <= 1.2) {
-            return NewsTileSmall(data: data);
-          } else {
-            return NewsTileLarge(data: data);
-          }
-        } else {
-          return Text("");
-        }
-      },
-    );
-  }
-}
-
-class NewsTileSmall extends StatelessWidget {
-  NewsTileSmall({this.data});
 
   final data;
 
@@ -123,72 +88,69 @@ class NewsTileSmall extends StatelessWidget {
           'body']; // Overflow attribute will not allow full body to appear.
     }
     imageUrlData = data['image-url'];
-    dateData = data['date'];
+
+    DateTime dateFetch = data['timestamp'].toDate();
+    dateData = timeago.format(dateFetch);
 
     return FlatButton(
-      padding: EdgeInsets.all(13),
-      child: Container(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Container(
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.7,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Container(
+            //width: MediaQuery.of(context).size.width * 0.7,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  dateData,
+                  style: TextStyle(
+                    color: Colors.black45,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                Wrap(
                   children: <Widget>[
                     Text(
-                      dateData,
+                      titleData,
                       style: TextStyle(
-                        color: Colors.black45,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    Wrap(
-                      children: <Widget>[
-                        Text(
-                          titleData,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 5),
-                    Text(
-                      subTitleData,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black54,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ],
                 ),
-              ),
+                SizedBox(height: 5),
+                Text(
+                  subTitleData,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black54,
+                  ),
+                ),
+              ],
             ),
-            Container(
-              width: MediaQuery.of(context).size.width * 0.2,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Hero(
-                  tag: generateMd5(titleData),
-                  child: CachedNetworkImage(
-                    imageUrl: imageUrlData,
-                    placeholder: (context, url) => CircularProgressIndicator(),
-                    errorWidget: (context, url, error) => Icon(
-                      Icons.broken_image,
-                      size: 40,
-                    ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width * 0.2,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Hero(
+                tag: generateMd5(titleData),
+                child: CachedNetworkImage(
+                  imageUrl: imageUrlData,
+                  placeholder: (context, url) => CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => Icon(
+                    Icons.broken_image,
+                    size: 40,
                   ),
                 ),
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
       onPressed: () {
         Navigator.push(
@@ -198,100 +160,6 @@ class NewsTileSmall extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-}
-
-class NewsTileLarge extends StatelessWidget {
-  NewsTileLarge({this.data});
-
-  final data;
-
-  @override
-  Widget build(BuildContext context) {
-    String titleData, subTitleData, imageUrlData, dateData;
-    TextOverflow overflowType;
-    titleData = data['title'];
-    if (data['sub-title'] != null && data['sub-title'] != '') {
-      subTitleData = data['sub-title'];
-      overflowType = TextOverflow.visible;
-    } else {
-      subTitleData = data['body'];
-      overflowType = TextOverflow.ellipsis;
-      // Overflow attribute will not allow
-      // full body to appear in subtitle.
-    }
-    imageUrlData = data['image-url'];
-    dateData = data['date'];
-
-    return Container(
-      padding: EdgeInsets.all(13),
-      child: ButtonTheme(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        padding: EdgeInsets.all(0),
-        child: FlatButton(
-          child: Column(
-            children: <Widget>[
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Hero(
-                  tag: generateMd5(titleData),
-                  child: CachedNetworkImage(
-                    imageUrl: imageUrlData,
-                    placeholder: (context, url) => LinearProgressIndicator(),
-                    errorWidget: (context, url, error) => Icon(
-                      Icons.broken_image,
-                      size: 80,
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      dateData,
-                      style: TextStyle(
-                        color: Colors.black45,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    Text(
-                      titleData,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    SizedBox(height: 7),
-                    Text(
-                      subTitleData,
-                      overflow: overflowType,
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black54,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ArticlePage(data: data),
-              ),
-            );
-          },
-        ),
-      ),
     );
   }
 }

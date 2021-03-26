@@ -11,8 +11,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'home.dart';
-
 class ArticlePage extends StatefulWidget {
   ArticlePage({this.data, this.offline});
 
@@ -92,8 +90,8 @@ class _ArticlePageState extends State<ArticlePage>
     imageUrlData = data['image-url'] ?? '';
     bodyData = data['body'];
     dateAndTimeData = <String>[
-      data['date'],
-      data['time'],
+      data['timestamp'].toDate().toString(),
+      data['timestamp'].toDate().toString(),
     ];
 
     if (offline == true) {
