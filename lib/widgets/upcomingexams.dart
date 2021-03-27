@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import 'package:matrix/components/constant.dart';
 import 'package:matrix/components/heading.dart';
 import 'package:flutter/foundation.dart';
-import 'package:timeago/timeago.dart' as timeago;
 
 class UpcomingExams extends StatelessWidget {
   const UpcomingExams({

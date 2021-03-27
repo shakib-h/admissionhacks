@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'home.dart';
+import 'initial.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -14,7 +14,7 @@ class SplashState extends State<Splash> {
     super.initState();
     Timer(Duration(milliseconds: 1800), () {
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => MyHomePage()));
+          MaterialPageRoute(builder: (context) => InitialPage()));
     });
   }
 

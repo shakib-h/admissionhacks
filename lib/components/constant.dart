@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 
 // Colors
@@ -40,3 +43,7 @@ const tListTextStyle = TextStyle(
   fontWeight: FontWeight.w500,
   color: tListTextColor,
 );
+
+String generateMd5(String input) {
+  return md5.convert(utf8.encode(input)).toString();
+}

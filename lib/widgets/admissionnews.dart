@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:matrix/components/constant.dart';
 import 'package:matrix/components/heading.dart';
 import 'package:matrix/screens/article.dart';
-import 'package:matrix/screens/home.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class AdmissionNews extends StatelessWidget {
