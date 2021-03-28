@@ -21,16 +21,7 @@ class Heading extends StatelessWidget {
           heading,
           style: tTitleTextstyle,
         ),
-        new InkWell(
-          onTap: onPressed,
-          child: new Text(
-            ctatext,
-            style: TextStyle(
-              color: tPrimaryColor,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
+        TextButton(onPressed: onPressed, child: Text(ctatext))
       ],
     );
   }

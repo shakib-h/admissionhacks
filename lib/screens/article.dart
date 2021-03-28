@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:intl/intl.dart';
-import 'package:matrix/screens/offline_home.dart';
+import 'package:matrix/components/constant.dart';
 import 'package:crypto/crypto.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:network_image_to_byte/network_image_to_byte.dart';
@@ -125,80 +125,14 @@ class _ArticlePageState extends State<ArticlePage>
     }
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        elevation: 0,
+        backgroundColor: tPrimaryColor,
         title: Text(
           title,
           style: TextStyle(letterSpacing: 3),
         ),
-        leading: Padding(
-          padding: EdgeInsets.only(left: 20),
-          child: GestureDetector(
-            child: Icon(Icons.arrow_back_ios),
-            onTap: () {
-              if (offline == true) {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => MyOfflineHomePage(),
-                  ),
-                );
-              } else {
-                Navigator.of(context).pop();
-              }
-            },
-          ),
-        ),
-        actions: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(right: 20),
-            child: GestureDetector(
-              child: makeOfflineIcon,
-              onTap: () async {
-                if (offline == true) {
-                  // REMOVAL BUTTON FUNCTION
-                  setState(() {
-                    prefs.remove(generateMd5(titleData));
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MyOfflineHomePage(),
-                      ),
-                    );
-                  });
-                  return;
-                }
-                setState(() {
-                  makeOfflineIcon = AspectRatio(
-                    child: Padding(
-                      padding: EdgeInsets.all(16),
-                      child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation(Colors.white),
-                      ),
-                    ),
-                    aspectRatio: 1,
-                  );
-                });
-                if (prefs.containsKey(generateMd5(data['title']))) return;
-
-                Uint8List base64imgData =
-                    await networkImageToByte(imageUrlData);
-                String base64string = base64Encode(base64imgData);
-                prefs.setStringList("${generateMd5(titleData)}", [
-                  titleData,
-                  subTitleData,
-                  bodyData,
-                  dateAndTimeData[0], // Date
-                  dateAndTimeData[1], // Time
-                  base64string
-                ]);
-                setState(() {
-                  makeOfflineIcon = Icon(Icons.offline_pin);
-                });
-              },
-            ),
-          )
-        ],
       ),
       body: ListView(
         children: <Widget>[

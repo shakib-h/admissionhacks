@@ -4,9 +4,10 @@ import 'package:intl/intl.dart';
 import 'package:matrix/components/constant.dart';
 import 'package:matrix/components/heading.dart';
 import 'package:flutter/foundation.dart';
+import 'package:matrix/screens/upcomingexams.dart';
 
-class UpcomingExams extends StatelessWidget {
-  const UpcomingExams({
+class UpcomingExamsWidget extends StatelessWidget {
+  const UpcomingExamsWidget({
     Key key,
   }) : super(key: key);
 
@@ -17,7 +18,13 @@ class UpcomingExams extends StatelessWidget {
         Heading(
           heading: "Upcoming Exams",
           ctatext: "See more",
-          onPressed: null,
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => UpcomingExams(),
+                ));
+          },
         ),
         Container(
           margin: EdgeInsets.only(top: 20),
@@ -88,11 +95,11 @@ class ExamTile extends StatelessWidget {
       children: [
         Text(
           data["title"],
-          //style: tListTextStyle,
+          style: tListTextStyle,
         ),
         Text(
-          "in " + examIn + " days | " + examDateFormat,
-          //style: tListTextStyle,
+          "in " + examIn + " days - " + examDateFormat,
+          style: tListTextStyle,
         ),
       ],
     );

@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:matrix/components/constant.dart';
-import 'package:matrix/components/heading.dart';
 import 'package:matrix/screens/article.dart';
+import 'package:matrix/widgets/customappbar.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class NewsPage extends StatelessWidget {
@@ -15,55 +15,39 @@ class NewsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Heading(
-          heading: "Admission News",
-          ctatext: "See more",
-          onPressed: null,
+        CustomAppbar(
+          textTop: "News",
         ),
-        Container(
-          margin: EdgeInsets.only(top: 20),
-          padding: EdgeInsets.all(10),
-          width: double.infinity,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                offset: Offset(0, 10),
-                blurRadius: 30,
-                color: kShadowColor,
-              ),
-            ],
-          ),
-          child: FutureBuilder(
-            future: FirebaseFirestore.instance
-                .collection('news-articles')
-                .limit(5)
-                .orderBy('timestamp', descending: true)
-                .get(),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return LinearProgressIndicator(
-                  backgroundColor: tPrimaryColor,
-                );
-              } else {
-                return ListView.separated(
-                  padding: EdgeInsets.zero,
-                  shrinkWrap: true,
-                  physics: BouncingScrollPhysics(),
-                  separatorBuilder: (context, index) => Divider(
-                    indent: 10,
-                    endIndent: 10,
-                    color: Colors.black26,
-                  ),
-                  itemCount: snapshot.data.docs.length,
-                  itemBuilder: (_, index) => NewsTile(
-                    data: snapshot.data.docs[index],
-                  ),
-                );
-              }
-            },
-          ),
+        FutureBuilder(
+          future: FirebaseFirestore.instance
+              .collection('news-articles')
+              .orderBy('timestamp', descending: true)
+              .get(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return LinearProgressIndicator(
+                backgroundColor: tPrimaryColor,
+              );
+            } else {
+              return ListView.separated(
+                padding: EdgeInsets.only(
+                  left: 10,
+                  right: 10,
+                ),
+                shrinkWrap: true,
+                physics: BouncingScrollPhysics(),
+                separatorBuilder: (context, index) => Divider(
+                  indent: 10,
+                  endIndent: 10,
+                  color: Colors.black26,
+                ),
+                itemCount: snapshot.data.docs.length,
+                itemBuilder: (_, index) => NewsTile(
+                  data: snapshot.data.docs[index],
+                ),
+              );
+            }
+          },
         ),
       ],
     );
@@ -91,12 +75,12 @@ class NewsTile extends StatelessWidget {
     DateTime dateFetch = data['timestamp'].toDate();
     dateData = timeago.format(dateFetch);
 
-    return FlatButton(
+    return TextButton(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Container(
-            //width: MediaQuery.of(context).size.width * 0.7,
+            width: MediaQuery.of(context).size.width * 0.7,
             child: Column(
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -114,6 +98,7 @@ class NewsTile extends StatelessWidget {
                       titleData,
                       style: TextStyle(
                         fontSize: 20,
+                        color: tTitleTextColor,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -157,7 +142,7 @@ class NewsTile extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => ArticlePage(
               data: data,
-              title: "Admission News",
+              title: "News",
             ),
           ),
         );

@@ -1,9 +1,11 @@
 import 'package:matrix/components/constant.dart';
 
 import 'package:flutter/material.dart';
+import 'package:matrix/screens/explore.dart';
 import 'package:matrix/screens/home.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:matrix/screens/news.dart';
+import 'package:matrix/screens/quiz.dart';
 
 class InitialPage extends StatefulWidget {
   @override
@@ -19,15 +21,9 @@ class _InitialPageState extends State<InitialPage> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
   static List<Widget> _widgetOptions = <Widget>[
     HomePage(),
+    QuizPage(),
     NewsPage(),
-    Text(
-      'Search',
-      style: optionStyle,
-    ),
-    Text(
-      'Profile',
-      style: optionStyle,
-    ),
+    ExplorePage(),
   ];
 
   @override
@@ -53,7 +49,13 @@ class _InitialPageState extends State<InitialPage> {
     return Scaffold(
       body: SingleChildScrollView(
         controller: controller,
+        //child: AnimatedSwitcher(
+        //duration: const Duration(milliseconds: 500),
+        //transitionBuilder: (Widget child, Animation<double> animation) {
+        //return ScaleTransition(child: child, scale: animation);
+        //},
         child: _widgetOptions[_selectedIndex],
+        //),
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(color: Colors.white, boxShadow: [
@@ -77,16 +79,16 @@ class _InitialPageState extends State<InitialPage> {
                     text: 'Home',
                   ),
                   GButton(
+                    icon: Icons.question_answer_rounded,
+                    text: 'Quiz',
+                  ),
+                  GButton(
                     icon: Icons.text_snippet_rounded,
                     text: 'News',
                   ),
                   GButton(
-                    icon: Icons.search_rounded,
-                    text: 'Search',
-                  ),
-                  GButton(
-                    icon: Icons.people_rounded,
-                    text: 'Profile',
+                    icon: Icons.explore,
+                    text: 'Explore',
                   ),
                 ],
                 selectedIndex: _selectedIndex,

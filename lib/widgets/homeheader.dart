@@ -1,9 +1,8 @@
 import 'package:matrix/components/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:matrix/screens/offline_home.dart';
 
-class HomeHeader extends StatefulWidget {
+class HomeHeader extends StatelessWidget {
   final String image;
   final String textTop;
   final String textBottom;
@@ -12,11 +11,6 @@ class HomeHeader extends StatefulWidget {
       {Key key, this.image, this.textTop, this.textBottom, this.offset})
       : super(key: key);
 
-  @override
-  _HomeHeaderState createState() => _HomeHeaderState();
-}
-
-class _HomeHeaderState extends State<HomeHeader> {
   @override
   Widget build(BuildContext context) {
     return ClipPath(
@@ -56,10 +50,7 @@ class _HomeHeaderState extends State<HomeHeader> {
                         Text("Saved News")
                       ],
                     ),
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => MyOfflineHomePage()));
-                    },
+                    onTap: () {},
                   ),
                 ),
               ],
@@ -71,33 +62,33 @@ class _HomeHeaderState extends State<HomeHeader> {
                   Positioned(
                     //top: (widget.offset < 0) ? 0 : widget.offset,
                     child: SvgPicture.asset(
-                      widget.image,
+                      image,
                       width: 230,
                       fit: BoxFit.fitWidth,
                       alignment: Alignment.topCenter,
                     ),
                   ),
                   Positioned(
-                    top: 30 - widget.offset / 2,
+                    top: 30 - offset / 2,
                     right: 35,
                     child: Text(
-                      "${widget.textTop}",
+                      textTop,
                       style: tHeadingTextStyle.copyWith(
                         color: Colors.white,
                       ),
                     ),
                   ),
                   Positioned(
-                    top: 65 - widget.offset / 2,
+                    top: 65 - offset / 2,
                     right: 35,
                     child: Text(
-                      "${widget.textBottom}",
+                      textBottom,
                       style: tTagTextStyle.copyWith(
                         color: Colors.white,
                       ),
                     ),
                   ),
-                  Container(), // I dont know why it can't work without container
+                  Container(),
                 ],
               ),
             ),
