@@ -1,12 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:typed_data';
-
 import 'package:intl/intl.dart';
+import 'package:matrix/components/browser.dart';
 import 'package:matrix/components/constant.dart';
 import 'package:crypto/crypto.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:network_image_to_byte/network_image_to_byte.dart';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
@@ -82,18 +80,19 @@ class _ArticlePageState extends State<ArticlePage>
 
   @override
   Widget build(BuildContext context) {
-    String titleData, subTitleData, imageUrlData, bodyData;
+    String titleData, subTitleData, imageUrlData, bodyData, url;
     Widget imageWidget;
     List<String> dateAndTimeData;
     titleData = data['title'];
     if (data['sub-title'] != null) {
-      subTitleData = data['sub-title'];
+      subTitleData = data['sub-title'].replaceAll("\\n", "\n");
     } else {
       subTitleData = "";
       // allow full body to appear.
     }
     imageUrlData = data['image-url'] ?? '';
     bodyData = data['body'].replaceAll("\\n", "\n");
+    url = data['url'];
 
     dateAndTimeData = <String>[
       DateFormat("dd MMM").format(data['timestamp'].toDate()),
@@ -127,6 +126,7 @@ class _ArticlePageState extends State<ArticlePage>
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        brightness: Brightness.light,
         elevation: 0,
         backgroundColor: tPrimaryColor,
         title: Text(
@@ -142,7 +142,7 @@ class _ArticlePageState extends State<ArticlePage>
               titleData,
               style: TextStyle(
                 fontFamily: 'Times New Roman',
-                fontSize: 35,
+                fontSize: 30,
                 fontWeight: FontWeight.w800,
               ),
             ),
@@ -174,6 +174,10 @@ class _ArticlePageState extends State<ArticlePage>
             ),
           ),
           Padding(
+            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+            child: imageWidget,
+          ),
+          Padding(
             padding: EdgeInsets.fromLTRB(13, 0, 13, 10),
             child: Text(
               subTitleData,
@@ -186,10 +190,6 @@ class _ArticlePageState extends State<ArticlePage>
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-            child: imageWidget,
-          ),
-          Padding(
             padding: EdgeInsets.all(15),
             child: Text(
               bodyData,
@@ -200,36 +200,42 @@ class _ArticlePageState extends State<ArticlePage>
             ),
           ),
           Padding(
+              padding: EdgeInsets.all(15),
+              child: Browser(
+                text: "বিস্তারিত",
+                url: url,
+              )),
+          Padding(
             padding: EdgeInsets.all(30),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
                   margin: EdgeInsets.all(10),
-                  width: 40,
+                  width: 80,
                   height: 2,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(1),
                     gradient: LinearGradient(
-                      colors: [Colors.red.shade900, Colors.red.shade400],
+                      colors: [Colors.blue.shade900, Colors.blue.shade400],
                     ),
                   ),
                 ),
                 Text(
-                  "X",
+                  "o",
                   style: TextStyle(
-                    color: Colors.yellow.shade800,
+                    color: Colors.blue.shade800,
                     fontSize: 13,
                   ),
                 ),
                 Container(
                   margin: EdgeInsets.all(10),
-                  width: 40,
+                  width: 80,
                   height: 2,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(1),
                     gradient: LinearGradient(
-                      colors: [Colors.red.shade400, Colors.red.shade900],
+                      colors: [Colors.blue.shade900, Colors.blue.shade400],
                     ),
                   ),
                 ),

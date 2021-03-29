@@ -91,12 +91,12 @@ class NewsTile extends StatelessWidget {
     DateTime dateFetch = data['timestamp'].toDate();
     dateData = timeago.format(dateFetch);
 
-    return FlatButton(
+    return TextButton(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Container(
-            //width: MediaQuery.of(context).size.width * 0.7,
+            width: MediaQuery.of(context).size.width * 0.6,
             child: Column(
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -114,6 +114,7 @@ class NewsTile extends StatelessWidget {
                       titleData,
                       style: TextStyle(
                         fontSize: 20,
+                        color: tTitleTextColor,
                         fontWeight: FontWeight.w500,
                       ),
                     ),

@@ -27,18 +27,18 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
-  flutter_svg: ^0.19.3
+  flutter_svg:
   google_nav_bar:
   firebase_core:
   cloud_firestore:
-  path_provider:
   crypto:
   shared_preferences:
-  network_image_to_byte:
   cached_network_image:
   intl:
   timeago:
+  flutter_web_browser:
+  webview_flutter:
+  line_icons:
 
 dev_dependencies:
   flutter_test:
@@ -58,7 +58,7 @@ flutter:
    - assets/icons/
    - assets/images/
    - assets/images/banner/
-   - images/
+   
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -1,3 +1,4 @@
+import 'package:line_icons/line_icons.dart';
 import 'package:matrix/components/constant.dart';
 
 import 'package:flutter/material.dart';
@@ -14,11 +15,8 @@ class InitialPage extends StatefulWidget {
 
 class _InitialPageState extends State<InitialPage> {
   double offset = 0;
-  final controller = ScrollController();
   int _selectedIndex = 0;
 
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
   static List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     QuizPage(),
@@ -29,34 +27,17 @@ class _InitialPageState extends State<InitialPage> {
   @override
   void initState() {
     super.initState();
-    controller.addListener(onScroll);
   }
 
   @override
   void dispose() {
-    controller.dispose();
     super.dispose();
-  }
-
-  void onScroll() {
-    setState(() {
-      offset = (controller.hasClients) ? controller.offset : 0;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        controller: controller,
-        //child: AnimatedSwitcher(
-        //duration: const Duration(milliseconds: 500),
-        //transitionBuilder: (Widget child, Animation<double> animation) {
-        //return ScaleTransition(child: child, scale: animation);
-        //},
-        child: _widgetOptions[_selectedIndex],
-        //),
-      ),
+      body: _widgetOptions[_selectedIndex],
       bottomNavigationBar: Container(
         decoration: BoxDecoration(color: Colors.white, boxShadow: [
           BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(.1))
@@ -69,25 +50,25 @@ class _InitialPageState extends State<InitialPage> {
                 hoverColor: Colors.grey[100],
                 gap: 8,
                 activeColor: tPrimaryColor,
-                iconSize: 24,
+                iconSize: 28,
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 duration: Duration(milliseconds: 400),
                 tabBackgroundColor: Colors.grey[100],
                 tabs: [
                   GButton(
-                    icon: Icons.home_rounded,
+                    icon: LineIcons.home,
                     text: 'Home',
                   ),
                   GButton(
-                    icon: Icons.question_answer_rounded,
+                    icon: LineIcons.graduationCap,
                     text: 'Quiz',
                   ),
                   GButton(
-                    icon: Icons.text_snippet_rounded,
+                    icon: LineIcons.newspaper,
                     text: 'News',
                   ),
                   GButton(
-                    icon: Icons.explore,
+                    icon: LineIcons.compass,
                     text: 'Explore',
                   ),
                 ],
