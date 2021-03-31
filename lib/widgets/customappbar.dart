@@ -1,7 +1,7 @@
 import 'package:matrix/components/constant.dart';
 import 'package:flutter/material.dart';
 
-class CustomAppbar extends StatelessWidget {
+class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String textTop;
   final IconData icon;
   final Function onpress;
@@ -11,6 +11,8 @@ class CustomAppbar extends StatelessWidget {
     this.icon,
     this.onpress,
   }) : super(key: key);
+
+  Size get preferredSize => const Size.fromHeight(100);
 
   @override
   Widget build(BuildContext context) {
