@@ -31,6 +31,10 @@ dependencies:
   google_nav_bar:
   firebase_core:
   cloud_firestore:
+  firebase_crashlytics:
+  firebase_messaging:
+  firebase_in_app_messaging:
+  google_mobile_ads:
   crypto:
   shared_preferences:
   cached_network_image:

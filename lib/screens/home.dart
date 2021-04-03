@@ -1,7 +1,10 @@
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:matrix/components/constant.dart';
 import 'package:matrix/components/dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:matrix/widgets/admissionnews.dart';
 import 'package:matrix/widgets/admissionupdate.dart';
+import 'package:matrix/widgets/bannerAds.dart';
 import 'package:matrix/widgets/homeheader.dart';
 import 'package:matrix/widgets/upcomingexamswidget.dart';
 
@@ -30,6 +33,11 @@ class HomePage extends StatelessWidget {
                 AdmissionUpdate(),
                 SizedBox(height: 20),
                 UpcomingExamsWidget(),
+                SizedBox(height: 20),
+                BannerAds(
+                  adUnit: adUnitBanner,
+                  adSize: AdSize.largeBanner,
+                ),
                 SizedBox(height: 20),
                 AdmissionNews(),
                 SizedBox(height: 20),

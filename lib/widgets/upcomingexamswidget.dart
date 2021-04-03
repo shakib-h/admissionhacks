@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:matrix/components/constant.dart';
 import 'package:matrix/components/heading.dart';
@@ -13,19 +14,48 @@ class UpcomingExamsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool _isInterstitialAdReady = false;
+
+    final AdListener listener = AdListener(
+      // Called when an ad is successfully received.
+      onAdLoaded: (Ad ad) {
+        _isInterstitialAdReady = true;
+      },
+      // Called when an ad request failed.
+      onAdFailedToLoad: (Ad ad, LoadAdError error) {
+        _isInterstitialAdReady = false;
+      },
+      // Called when an ad opens an overlay that covers the screen.
+      onAdOpened: (Ad ad) => {},
+      // Called when an ad removes an overlay that covers the screen.
+      onAdClosed: (Ad ad) => {},
+      // Called when an ad is in the process of leaving the application.
+      onApplicationExit: (Ad ad) => {},
+    );
+
+    final InterstitialAd myInterstitial = InterstitialAd(
+      adUnitId: adUnitInterstitial,
+      request: AdRequest(),
+      listener: listener,
+    );
+
+    myInterstitial.load();
+
     return Column(
       children: [
         Heading(
-          heading: "Upcoming Exams",
-          ctatext: "See more",
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => UpcomingExams(),
-                ));
-          },
-        ),
+            heading: "Upcoming Exams",
+            ctatext: "See more",
+            onPressed: () async {
+              if (_isInterstitialAdReady) {
+                myInterstitial.show();
+              }
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => UpcomingExams(),
+                  ));
+            }),
         Container(
           margin: EdgeInsets.only(top: 20),
           padding: EdgeInsets.all(20),

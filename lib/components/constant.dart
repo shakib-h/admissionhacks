@@ -46,3 +46,6 @@ const tListTextStyle = TextStyle(
 String generateMd5(String input) {
   return md5.convert(utf8.encode(input)).toString();
 }
+
+String adUnitBanner = "ca-app-pub-3940256099942544/6300978111";
+String adUnitInterstitial = "ca-app-pub-3940256099942544/1033173712";
