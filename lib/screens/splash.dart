@@ -30,7 +30,7 @@ class SplashState extends State<Splash> {
           children: <Widget>[
             introImage,
             Text(
-              "Admission ____",
+              "Admission Hacks",
               style: TextStyle(
                 fontWeight: FontWeight.w300,
                 fontSize: 30,
