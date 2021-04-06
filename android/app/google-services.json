@@ -1,39 +1,31 @@
 {
-  "project_info": {
-    "project_number": "52318837020",
-    "project_id": "matrix-bd",
-    "storage_bucket": "matrix-bd.appspot.com"
-  },
-  "client": [
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:52318837020:android:bb9a0d94ee8ac50a1d42d9",
-        "android_client_info": {
-          "package_name": "com.teemteem.matrix"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "52318837020-r44hqjv816tus28p0vile74gi558i5ln.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAeI_nZYWh7AWjTgJZ7fqDdrZ4eUE7d7p4"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "52318837020-r44hqjv816tus28p0vile74gi558i5ln.apps.googleusercontent.com",
-              "client_type": 3
+    "project_info": {
+        "project_number": "52318837020",
+        "project_id": "matrix-bd",
+        "storage_bucket": "matrix-bd.appspot.com"
+    },
+    "client": [{
+        "client_info": {
+            "mobilesdk_app_id": "1:52318837020:android:cf59ce57e47c2e0f1d42d9",
+            "android_client_info": {
+                "package_name": "com.admissionhacks.app"
             }
-          ]
+        },
+        "oauth_client": [{
+            "client_id": "52318837020-r44hqjv816tus28p0vile74gi558i5ln.apps.googleusercontent.com",
+            "client_type": 3
+        }],
+        "api_key": [{
+            "current_key": "AIzaSyAeI_nZYWh7AWjTgJZ7fqDdrZ4eUE7d7p4"
+        }],
+        "services": {
+            "appinvite_service": {
+                "other_platform_oauth_client": [{
+                    "client_id": "52318837020-r44hqjv816tus28p0vile74gi558i5ln.apps.googleusercontent.com",
+                    "client_type": 3
+                }]
+            }
         }
-      }
-    }
-  ],
-  "configuration_version": "1"
+    }],
+    "configuration_version": "1"
 }

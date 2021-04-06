@@ -45,7 +45,7 @@ class _ExplorePageState extends State<ExplorePage> {
               },
               onWebResourceError: (WebResourceError error) {
                 setState(() {
-                  webView.loadUrl("https://teemteem.com");
+                  webView.loadUrl("https://app.admissionhacks.com/explore");
                   {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
