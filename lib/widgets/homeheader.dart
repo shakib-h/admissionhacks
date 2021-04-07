@@ -41,28 +41,28 @@ class HomeHeader extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
             PopupMenuButton(
+              onSelected: (value) {
+                if (value == 0) {
+                  Wiredash.of(context).setBuildProperties(
+                    buildNumber: buildNumber,
+                    buildVersion: buildVersion,
+                  );
+                  Wiredash.of(context).show();
+                }
+              },
               child: SvgPicture.asset("assets/icons/menu.svg"),
               itemBuilder: (context) => [
                 PopupMenuItem(
-                  child: InkWell(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Icon(
-                          Icons.offline_bolt,
-                          color: Colors.black87,
-                        ),
-                        Text("Give Feedback")
-                      ],
-                    ),
-                    onTap: () {
-                      Wiredash.of(context).setBuildProperties(
-                        buildNumber: buildNumber,
-                        buildVersion: buildVersion,
-                      );
-
-                      Wiredash.of(context).show();
-                    },
+                  value: 0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Icon(
+                        Icons.offline_bolt,
+                        color: Colors.black87,
+                      ),
+                      Text("Give Feedback")
+                    ],
                   ),
                 ),
               ],
