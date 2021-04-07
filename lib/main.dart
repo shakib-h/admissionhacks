@@ -1,3 +1,4 @@
+import 'package:wiredash/wiredash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,6 +13,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  final _navigatorKey = GlobalKey<NavigatorState>();
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -19,10 +21,16 @@ class MyApp extends StatelessWidget {
       statusBarColor: Colors.transparent,
       statusBarBrightness: Brightness.light,
     ));
-    return MaterialApp(
-      title: 'Admission Hacks',
-      debugShowCheckedModeBanner: false,
-      home: InitialPage(),
+    return Wiredash(
+      projectId: 'admission-hacks-0f8eae9',
+      secret: 'aux0d47ofch32v8rdj0gkj8mroqqzbvb5q0gg8gpl3mnmtqz',
+      navigatorKey: _navigatorKey,
+      child: MaterialApp(
+        title: 'Admission Hacks',
+        debugShowCheckedModeBanner: false,
+        navigatorKey: _navigatorKey,
+        home: InitialPage(),
+      ),
     );
   }
 }

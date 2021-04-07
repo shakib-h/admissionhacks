@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 
@@ -51,3 +50,6 @@ String generateMd5(String input) {
 String adUnitHome = "ca-app-pub-1168036738005034/4058889704";
 String adUnitBrowser = "ca-app-pub-1168036738005034/6711585060";
 String adUnitInterstitial = "ca-app-pub-1168036738005034/8255766870";
+
+String buildVersion = "1";
+String buildNumber = "1";
