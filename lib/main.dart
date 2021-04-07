@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'screens/splash.dart';
+import 'package:matrix/screens/initial.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Admission Hacks',
       debugShowCheckedModeBanner: false,
-      home: Splash(),
+      home: InitialPage(),
     );
   }
 }
