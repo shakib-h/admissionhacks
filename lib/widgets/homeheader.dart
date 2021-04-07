@@ -1,15 +1,20 @@
 import 'package:matrix/components/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:wiredash/wiredash.dart';
 
 class HomeHeader extends StatelessWidget {
   final String image;
   final String textTop;
   final String textBottom;
   final double offset;
-  const HomeHeader(
-      {Key key, this.image, this.textTop, this.textBottom, this.offset})
-      : super(key: key);
+  const HomeHeader({
+    Key key,
+    this.image,
+    this.textTop,
+    this.textBottom,
+    this.offset,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +40,33 @@ class HomeHeader extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
-            //right menu
+            PopupMenuButton(
+              child: SvgPicture.asset("assets/icons/menu.svg"),
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  child: InkWell(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Icon(
+                          Icons.offline_bolt,
+                          color: Colors.black87,
+                        ),
+                        Text("Give Feedback")
+                      ],
+                    ),
+                    onTap: () {
+                      Wiredash.of(context).setBuildProperties(
+                        buildNumber: buildNumber,
+                        buildVersion: buildVersion,
+                      );
+
+                      Wiredash.of(context).show();
+                    },
+                  ),
+                ),
+              ],
+            ),
             SizedBox(height: 20),
             Expanded(
               child: Stack(
