@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:matrix/components/constant.dart';
+import 'package:matrix/widgets/browser.dart';
 import 'package:matrix/widgets/counter.dart';
 
 class AdmissionUpdate extends StatelessWidget {
@@ -22,7 +23,7 @@ class AdmissionUpdate extends StatelessWidget {
                     style: tTitleTextstyle,
                   ),
                   TextSpan(
-                    text: "exam and circular tracker",
+                    text: "tap on the numbers to learn more",
                     style: TextStyle(
                       color: tTextLightColor,
                     ),
@@ -66,21 +67,69 @@ class AdmissionUpdate extends StatelessWidget {
                         color: tInfectedColor,
                         number: documentFields["admissionupdate"]["cluster"],
                         title: "Cluster",
+                        onpress: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Browser(
+                                title: "Cluster",
+                                url:
+                                    "https://app.admissionhacks.com/update/cluster",
+                              ),
+                            ),
+                          );
+                        },
                       ),
                       Counter(
                         color: tDeathColor,
                         number: documentFields["admissionupdate"]["published"],
                         title: "Published",
+                        onpress: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Browser(
+                                title: "Published",
+                                url:
+                                    "https://app.admissionhacks.com/update/published",
+                              ),
+                            ),
+                          );
+                        },
                       ),
                       Counter(
                         color: tRecovercolor,
                         number: documentFields["admissionupdate"]["formfillup"],
                         title: "Form Fill Up",
+                        onpress: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Browser(
+                                title: "Form Fill Up",
+                                url:
+                                    "https://app.admissionhacks.com/update/formfillup",
+                              ),
+                            ),
+                          );
+                        },
                       ),
                       Counter(
                         color: tDeathColor,
                         number: documentFields["admissionupdate"]["ended"],
                         title: "Ended",
+                        onpress: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Browser(
+                                title: "Ended",
+                                url:
+                                    "https://app.admissionhacks.com/update/ended",
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ],
                   );

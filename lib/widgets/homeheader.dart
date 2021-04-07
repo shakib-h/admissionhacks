@@ -35,26 +35,7 @@ class HomeHeader extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
-            PopupMenuButton(
-              child: SvgPicture.asset("assets/icons/menu.svg"),
-              itemBuilder: (context) => [
-                PopupMenuItem(
-                  child: GestureDetector(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Icon(
-                          Icons.offline_bolt,
-                          color: Colors.black87,
-                        ),
-                        Text("Saved News")
-                      ],
-                    ),
-                    onTap: () {},
-                  ),
-                ),
-              ],
-            ),
+            //right menu
             SizedBox(height: 20),
             Expanded(
               child: Stack(
@@ -69,7 +50,7 @@ class HomeHeader extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    top: 30 - offset / 2,
+                    top: 35 - offset / 2,
                     right: 35,
                     child: Text(
                       textTop,

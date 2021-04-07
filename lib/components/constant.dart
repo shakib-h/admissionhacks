@@ -29,6 +29,7 @@ const tTagTextStyle = TextStyle(
 
 const tSubTextStyle = TextStyle(
   fontSize: 16,
+  fontWeight: FontWeight.normal,
   color: tTextLightColor,
 );
 
@@ -47,5 +48,6 @@ String generateMd5(String input) {
   return md5.convert(utf8.encode(input)).toString();
 }
 
-String adUnitBanner = "ca-app-pub-3940256099942544/6300978111";
-String adUnitInterstitial = "ca-app-pub-3940256099942544/1033173712";
+String adUnitHome = "ca-app-pub-1168036738005034/4058889704";
+String adUnitBrowser = "ca-app-pub-1168036738005034/6711585060";
+String adUnitInterstitial = "ca-app-pub-1168036738005034/8255766870";

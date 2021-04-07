@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_browser/flutter_web_browser.dart';
 import 'package:matrix/components/constant.dart';
 
-class Browser extends StatelessWidget {
+class OpenBrowser extends StatelessWidget {
   final String url;
   final String text;
-  const Browser({
+  const OpenBrowser({
     Key key,
     this.url,
     this.text,

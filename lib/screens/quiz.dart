@@ -49,7 +49,8 @@ class _QuizPageState extends State<QuizPage> {
                   {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text("No Internet!"),
+                        content:
+                            Text("Something went wrong. Please try again."),
                         action: SnackBarAction(
                           label: "Retry",
                           onPressed: () {

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:intl/intl.dart';
-import 'package:matrix/components/browser.dart';
+import 'package:matrix/components/openbrowser.dart';
 import 'package:matrix/components/constant.dart';
 import 'package:crypto/crypto.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -201,7 +201,7 @@ class _ArticlePageState extends State<ArticlePage>
           ),
           Padding(
               padding: EdgeInsets.all(15),
-              child: Browser(
+              child: OpenBrowser(
                 text: "বিস্তারিত",
                 url: url,
               )),
