@@ -10,7 +10,7 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   WebViewController webView;
-  String url = "https://google.com";
+  String url = "https://app.admissionhacks.com/quiz";
 
   num position = 1;
 
@@ -45,7 +45,7 @@ class _QuizPageState extends State<QuizPage> {
               },
               onWebResourceError: (WebResourceError error) {
                 setState(() {
-                  webView.loadUrl("https://teemteem.com");
+                  webView.loadUrl("about:blank");
                   {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(

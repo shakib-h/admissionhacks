@@ -31,7 +31,7 @@ class AdmissionNews extends StatelessWidget {
               BoxShadow(
                 offset: Offset(0, 10),
                 blurRadius: 30,
-                color: kShadowColor,
+                color: tShadowColor,
               ),
             ],
           ),
@@ -138,7 +138,7 @@ class NewsTile extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Hero(
-                tag: generateMd5(titleData),
+                tag: titleData,
                 child: CachedNetworkImage(
                   imageUrl: imageUrlData,
                   placeholder: (context, url) => CircularProgressIndicator(),

@@ -44,7 +44,7 @@ class AdmissionUpdate extends StatelessWidget {
               BoxShadow(
                 offset: Offset(0, 4),
                 blurRadius: 30,
-                color: kShadowColor,
+                color: tShadowColor,
               ),
             ],
           ),
@@ -64,7 +64,7 @@ class AdmissionUpdate extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Counter(
-                        color: tInfectedColor,
+                        color: tClusterColor,
                         number: documentFields["admissionupdate"]["cluster"],
                         title: "Cluster",
                         onpress: () {
@@ -81,7 +81,7 @@ class AdmissionUpdate extends StatelessWidget {
                         },
                       ),
                       Counter(
-                        color: tDeathColor,
+                        color: tPublishedColor,
                         number: documentFields["admissionupdate"]["published"],
                         title: "Published",
                         onpress: () {
@@ -98,7 +98,7 @@ class AdmissionUpdate extends StatelessWidget {
                         },
                       ),
                       Counter(
-                        color: tRecovercolor,
+                        color: tFormfillupColor,
                         number: documentFields["admissionupdate"]["formfillup"],
                         title: "Form Fill Up",
                         onpress: () {
@@ -115,7 +115,7 @@ class AdmissionUpdate extends StatelessWidget {
                         },
                       ),
                       Counter(
-                        color: tDeathColor,
+                        color: tEndedColor,
                         number: documentFields["admissionupdate"]["ended"],
                         title: "Ended",
                         onpress: () {

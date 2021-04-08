@@ -122,7 +122,7 @@ class NewsTile extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Hero(
-                tag: generateMd5(titleData),
+                tag: titleData,
                 child: CachedNetworkImage(
                   imageUrl: imageUrlData,
                   placeholder: (context, url) => CircularProgressIndicator(),

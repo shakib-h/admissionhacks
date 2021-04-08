@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:matrix/components/openbrowser.dart';
 import 'package:matrix/components/constant.dart';
@@ -8,6 +9,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:matrix/widgets/bannerAds.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ArticlePage extends StatefulWidget {
@@ -141,7 +143,6 @@ class _ArticlePageState extends State<ArticlePage>
             child: Text(
               titleData,
               style: TextStyle(
-                fontFamily: 'Times New Roman',
                 fontSize: 30,
                 fontWeight: FontWeight.w800,
               ),
@@ -182,12 +183,15 @@ class _ArticlePageState extends State<ArticlePage>
             child: Text(
               subTitleData,
               style: TextStyle(
-                fontFamily: 'Roboto',
                 fontStyle: FontStyle.italic,
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
               ),
             ),
+          ),
+          BannerAds(
+            adUnit: adUnitArticle,
+            adSize: AdSize.fullBanner,
           ),
           Padding(
             padding: EdgeInsets.all(15),

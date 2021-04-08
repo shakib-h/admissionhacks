@@ -28,7 +28,7 @@ class UpcomingExams extends StatelessWidget {
                 BoxShadow(
                   offset: Offset(0, 10),
                   blurRadius: 30,
-                  color: kShadowColor,
+                  color: tShadowColor,
                 ),
               ],
             ),
@@ -108,7 +108,7 @@ class ExamTile extends StatelessWidget {
           BoxShadow(
             offset: Offset(0, 10),
             blurRadius: 30,
-            color: kShadowColor,
+            color: tShadowColor,
           ),
         ],
       ),

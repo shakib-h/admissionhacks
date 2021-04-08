@@ -42,6 +42,7 @@ class _BrowserState extends State<Browser> {
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
+          backgroundColor: tPrimaryColor,
         ),
         body: Column(
           children: [
