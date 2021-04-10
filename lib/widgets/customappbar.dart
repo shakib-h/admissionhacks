@@ -30,7 +30,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
           ],
         ),
         image: DecorationImage(
-          image: AssetImage("assets/images/virus.png"),
+          image: AssetImage("assets/images/dots.png"),
         ),
       ),
       child: Row(

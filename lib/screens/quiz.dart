@@ -50,7 +50,7 @@ class _QuizPageState extends State<QuizPage> {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content:
-                            Text("Something went wrong. Please try again."),
+                            Text("Something went wrong.\nPlease try again."),
                         action: SnackBarAction(
                           label: "Retry",
                           onPressed: () {

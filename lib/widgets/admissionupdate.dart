@@ -98,17 +98,18 @@ class AdmissionUpdate extends StatelessWidget {
                         },
                       ),
                       Counter(
-                        color: tFormfillupColor,
-                        number: documentFields["admissionupdate"]["formfillup"],
-                        title: "Form Fill Up",
+                        color: tApplyColor,
+                        number: documentFields["admissionupdate"]
+                            ["application"],
+                        title: "Apply",
                         onpress: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => Browser(
-                                title: "Form Fill Up",
+                                title: "Apply",
                                 url:
-                                    "https://app.admissionhacks.com/update/formfillup",
+                                    "https://app.admissionhacks.com/update/application",
                               ),
                             ),
                           );

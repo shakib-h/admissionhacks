@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
       child: Column(
         children: <Widget>[
           HomeHeader(
-            image: "assets/images/banner/undraw_studying_s3l7.svg",
+            image: "assets/images/undraw_studying.svg",
             textTop: "Admission Hacks",
             textBottom: "fine tune your preparation",
             offset: 0,

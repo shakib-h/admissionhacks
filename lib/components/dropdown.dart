@@ -32,8 +32,7 @@ class Dropdown extends StatelessWidget {
               value: "Undergraduate",
               items: [
                 'Undergraduate',
-                'SSC',
-                'HSC',
+                'Coming Soon',
               ].map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,

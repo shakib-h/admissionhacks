@@ -10,7 +10,7 @@ class ExplorePage extends StatefulWidget {
 
 class _ExplorePageState extends State<ExplorePage> {
   WebViewController webView;
-  String url = "https://google.com";
+  String url = "https://app.admissionhacks.com/explore";
 
   num position = 1;
 
@@ -32,7 +32,7 @@ class _ExplorePageState extends State<ExplorePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CustomAppbar(
-          textTop: "Quiz",
+          textTop: "Explore",
         ),
         body: IndexedStack(index: position, children: <Widget>[
           WebView(
@@ -45,12 +45,12 @@ class _ExplorePageState extends State<ExplorePage> {
               },
               onWebResourceError: (WebResourceError error) {
                 setState(() {
-                  webView.loadUrl("https://app.admissionhacks.com/explore");
+                  webView.loadUrl("about:blank");
                   {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content:
-                            Text("Something went wrong. Please try again."),
+                            Text("Something went wrong.\nPlease try again."),
                         action: SnackBarAction(
                           label: "Retry",
                           onPressed: () {

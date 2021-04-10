@@ -34,7 +34,7 @@ class HomeHeader extends StatelessWidget {
             ],
           ),
           image: DecorationImage(
-            image: AssetImage("assets/images/virus.png"),
+            image: AssetImage("assets/images/dots.png"),
           ),
         ),
         child: Column(

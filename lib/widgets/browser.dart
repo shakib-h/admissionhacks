@@ -63,7 +63,7 @@ class _BrowserState extends State<Browser> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
-                                  "Something went wrong. Please try again."),
+                                  "Something went wrong.\nPlease try again."),
                               action: SnackBarAction(
                                 label: "Retry",
                                 onPressed: () {
