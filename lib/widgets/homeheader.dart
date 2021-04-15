@@ -1,6 +1,7 @@
 import 'package:matrix/components/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:matrix/widgets/about.dart';
 import 'package:wiredash/wiredash.dart';
 
 class HomeHeader extends StatelessWidget {
@@ -49,19 +50,38 @@ class HomeHeader extends StatelessWidget {
                   );
                   Wiredash.of(context).show();
                 }
+                if (value == 1) {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => CustomAboutDialog(),
+                  );
+                }
               },
               child: SvgPicture.asset("assets/icons/menu.svg"),
               itemBuilder: (context) => [
                 PopupMenuItem(
                   value: 0,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Icon(
                         Icons.offline_bolt,
                         color: Colors.black87,
                       ),
-                      Text("Give Feedback")
+                      Text(" Give Feedback")
+                    ],
+                  ),
+                ),
+                PopupMenuItem(
+                  value: 1,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Icon(
+                        Icons.info,
+                        color: Colors.black87,
+                      ),
+                      Text(" About App")
                     ],
                   ),
                 ),

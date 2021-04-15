@@ -38,7 +38,7 @@ class HomePage extends StatelessWidget {
                   adUnit: adUnitHome,
                   adSize: AdSize.fullBanner,
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 10),
                 AdmissionNews(),
                 SizedBox(height: 20),
               ],

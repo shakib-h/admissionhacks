@@ -37,7 +37,7 @@ class OpenBrowser extends StatelessWidget {
           ),
         ],
         if (Platform.isIOS) ...[
-          TextButton(
+          ElevatedButton(
             onPressed: () {
               FlutterWebBrowser.openWebPage(
                 url: url,
