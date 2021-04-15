@@ -133,7 +133,6 @@ class _ArticlePageState extends State<ArticlePage>
         backgroundColor: tPrimaryColor,
         title: Text(
           title,
-          style: TextStyle(letterSpacing: 3),
         ),
       ),
       body: ListView(

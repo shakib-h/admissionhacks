@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:ui';
+
 import 'package:line_icons/line_icons.dart';
 import 'package:matrix/components/constant.dart';
 
@@ -34,50 +37,78 @@ class _InitialPageState extends State<InitialPage> {
     super.dispose();
   }
 
+  Future<bool> _onWillPop() {
+    return showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text(
+              'Are you sure you want to close the app?',
+              style: TextStyle(fontWeight: FontWeight.normal),
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: Text('NO'),
+              ),
+              TextButton(
+                onPressed: () => exit(0),
+                /*Navigator.of(context).pop(true)*/
+                child: Text('YES'),
+              ),
+            ],
+          ),
+        ) ??
+        false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _widgetOptions[_selectedIndex],
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(color: Colors.white, boxShadow: [
-          BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(.1))
-        ]),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
-            child: GNav(
-                rippleColor: Colors.grey[300],
-                hoverColor: Colors.grey[100],
-                gap: 8,
-                activeColor: tPrimaryColor,
-                iconSize: 28,
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                duration: Duration(milliseconds: 400),
-                tabBackgroundColor: Colors.grey[100],
-                tabs: [
-                  GButton(
-                    icon: LineIcons.home,
-                    text: 'Home',
-                  ),
-                  GButton(
-                    icon: LineIcons.graduationCap,
-                    text: 'Quiz',
-                  ),
-                  GButton(
-                    icon: LineIcons.newspaper,
-                    text: 'News',
-                  ),
-                  GButton(
-                    icon: LineIcons.compass,
-                    text: 'Explore',
-                  ),
-                ],
-                selectedIndex: _selectedIndex,
-                onTabChange: (index) {
-                  setState(() {
-                    _selectedIndex = index;
-                  });
-                }),
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        body: _widgetOptions[_selectedIndex],
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(color: Colors.white, boxShadow: [
+            BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(.1))
+          ]),
+          child: SafeArea(
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+              child: GNav(
+                  rippleColor: Colors.grey[300],
+                  hoverColor: Colors.grey[100],
+                  gap: 8,
+                  activeColor: tPrimaryColor,
+                  iconSize: 28,
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  duration: Duration(milliseconds: 400),
+                  tabBackgroundColor: Colors.grey[100],
+                  tabs: [
+                    GButton(
+                      icon: LineIcons.home,
+                      text: 'Home',
+                    ),
+                    GButton(
+                      icon: LineIcons.graduationCap,
+                      text: 'Quiz',
+                    ),
+                    GButton(
+                      icon: LineIcons.newspaper,
+                      text: 'News',
+                    ),
+                    GButton(
+                      icon: LineIcons.compass,
+                      text: 'Explore',
+                    ),
+                  ],
+                  selectedIndex: _selectedIndex,
+                  onTabChange: (index) {
+                    setState(() {
+                      _selectedIndex = index;
+                    });
+                  }),
+            ),
           ),
         ),
       ),

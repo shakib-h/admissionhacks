@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:matrix/screens/initial.dart';
 
+import 'components/constant.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -22,8 +24,8 @@ class MyApp extends StatelessWidget {
       statusBarBrightness: Brightness.light,
     ));
     return Wiredash(
-      projectId: 'admission-hacks-0f8eae9',
-      secret: 'aux0d47ofch32v8rdj0gkj8mroqqzbvb5q0gg8gpl3mnmtqz',
+      projectId: wdProject,
+      secret: wdSecret,
       navigatorKey: _navigatorKey,
       child: MaterialApp(
         title: 'Admission Hacks',

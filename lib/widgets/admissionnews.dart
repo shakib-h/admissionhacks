@@ -21,7 +21,7 @@ class AdmissionNews extends StatelessWidget {
           onPressed: null,
         ),
         Container(
-          margin: EdgeInsets.only(top: 20),
+          margin: EdgeInsets.only(top: 10),
           padding: EdgeInsets.all(10),
           width: double.infinity,
           decoration: BoxDecoration(

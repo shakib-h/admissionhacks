@@ -57,7 +57,7 @@ class UpcomingExamsWidget extends StatelessWidget {
                   ));
             }),
         Container(
-          margin: EdgeInsets.only(top: 20),
+          margin: EdgeInsets.only(top: 10),
           padding: EdgeInsets.all(20),
           width: double.infinity,
           decoration: BoxDecoration(
