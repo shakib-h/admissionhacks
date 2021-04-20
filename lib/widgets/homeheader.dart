@@ -1,4 +1,4 @@
-import 'package:admissionhacks/components/constant.dart';
+import 'package:admissionhacks/widgets/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:admissionhacks/widgets/about.dart';

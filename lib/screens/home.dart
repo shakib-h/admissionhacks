@@ -1,6 +1,6 @@
+import 'package:admissionhacks/widgets/components.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:admissionhacks/components/constant.dart';
-import 'package:admissionhacks/components/dropdown.dart';
+import 'package:admissionhacks/widgets/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:admissionhacks/widgets/admissionnews.dart';
 import 'package:admissionhacks/widgets/admissionupdate.dart';

@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:admissionhacks/components/constant.dart';
-import 'package:admissionhacks/components/heading.dart';
+import 'package:admissionhacks/widgets/constant.dart';
+import 'package:admissionhacks/widgets/heading.dart';
 import 'package:admissionhacks/screens/article.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -77,15 +77,10 @@ class NewsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String titleData, subTitleData, imageUrlData, dateData;
+    String titleData, imageUrlData, dateData;
 
     titleData = data['title'];
-    if ((data['sub-title'] != null) && (data['sub-title'] != '')) {
-      subTitleData = data['sub-title'];
-    } else {
-      subTitleData = data[
-          'body']; // Overflow attribute will not allow full body to appear.
-    }
+
     imageUrlData = data['image-url'];
 
     DateTime dateFetch = data['timestamp'].toDate();
@@ -115,20 +110,11 @@ class NewsTile extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 20,
                         color: tTitleTextColor,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "Kalpurush",
                       ),
                     ),
                   ],
-                ),
-                SizedBox(height: 5),
-                Text(
-                  subTitleData,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black54,
-                  ),
                 ),
               ],
             ),

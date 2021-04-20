@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
-import 'package:admissionhacks/components/openbrowser.dart';
-import 'package:admissionhacks/components/constant.dart';
+import 'package:admissionhacks/widgets/openbrowser.dart';
+import 'package:admissionhacks/widgets/constant.dart';
 import 'package:crypto/crypto.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -143,7 +143,8 @@ class _ArticlePageState extends State<ArticlePage>
               titleData,
               style: TextStyle(
                 fontSize: 30,
-                fontWeight: FontWeight.w800,
+                fontWeight: FontWeight.bold,
+                fontFamily: "Kalpurush",
               ),
             ),
           ),
@@ -184,7 +185,8 @@ class _ArticlePageState extends State<ArticlePage>
               style: TextStyle(
                 fontStyle: FontStyle.italic,
                 fontSize: 18,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.bold,
+                fontFamily: "Kalpurush",
               ),
             ),
           ),
@@ -197,17 +199,20 @@ class _ArticlePageState extends State<ArticlePage>
             child: Text(
               bodyData,
               style: TextStyle(
-                fontWeight: FontWeight.w400,
                 fontSize: 20,
+                fontFamily: "Kalpurush",
               ),
             ),
           ),
-          Padding(
-              padding: EdgeInsets.all(15),
-              child: OpenBrowser(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              OpenBrowser(
                 text: "বিস্তারিত",
                 url: url,
-              )),
+              ),
+            ],
+          ),
           Padding(
             padding: EdgeInsets.all(30),
             child: Row(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:admissionhacks/components/constant.dart';
+import 'package:admissionhacks/widgets/constant.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomAboutDialog extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:admissionhacks/components/constant.dart';
+import 'package:admissionhacks/widgets/constant.dart';
 import 'package:admissionhacks/widgets/bannerAds.dart';
 import 'package:flutter/material.dart';
 import 'package:admissionhacks/widgets/customappbar.dart';
@@ -47,7 +47,7 @@ class _ExplorePageState extends State<ExplorePage> {
             children: [
               Expanded(
                 child: WebView(
-                    initialUrl: "https://admissionhacks.com",
+                    initialUrl: url,
                     userAgent: "admissionhacks",
                     javascriptMode: JavascriptMode.unrestricted,
                     onPageFinished: doneLoading,

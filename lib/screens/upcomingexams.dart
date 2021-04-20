@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:admissionhacks/components/constant.dart';
+import 'package:admissionhacks/widgets/constant.dart';
 import 'package:flutter/foundation.dart';
 
 class UpcomingExams extends StatelessWidget {
@@ -50,7 +50,6 @@ class UpcomingExams extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 10),
           FutureBuilder(
             future: FirebaseFirestore.instance
                 .collection('admission')
@@ -64,12 +63,7 @@ class UpcomingExams extends StatelessWidget {
                   backgroundColor: tPrimaryColor,
                 );
               } else {
-                return ListView.separated(
-                  separatorBuilder: (context, index) => Divider(
-                    indent: 5,
-                    endIndent: 5,
-                    color: Colors.black26,
-                  ),
+                return ListView.builder(
                   padding: EdgeInsets.zero,
                   shrinkWrap: true,
                   physics: BouncingScrollPhysics(),

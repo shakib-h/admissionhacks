@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:line_icons/line_icons.dart';
-import 'package:admissionhacks/components/constant.dart';
+import 'package:admissionhacks/widgets/constant.dart';
 
 import 'package:flutter/material.dart';
 import 'package:admissionhacks/screens/explore.dart';

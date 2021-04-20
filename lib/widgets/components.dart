@@ -1,7 +1,37 @@
+import 'package:admissionhacks/widgets/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:admissionhacks/components/constant.dart';
-import 'package:admissionhacks/components/dot.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+class Dot extends StatelessWidget {
+  final Color color;
+  const Dot({
+    Key key,
+    this.color,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(6),
+      height: 25,
+      width: 25,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: color.withOpacity(.26),
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.transparent,
+          border: Border.all(
+            color: color,
+            width: 2,
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 class Dropdown extends StatelessWidget {
   @override
@@ -47,6 +77,44 @@ class Dropdown extends StatelessWidget {
               },
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class Counter extends StatelessWidget {
+  final int number;
+  final Color color;
+  final String title;
+  final Function onpress;
+  const Counter({
+    Key key,
+    this.number,
+    this.color,
+    this.title,
+    this.onpress,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: onpress,
+      child: Column(
+        children: <Widget>[
+          Dot(
+            color: color,
+          ),
+          SizedBox(height: 10),
+          Text(
+            "$number",
+            style: TextStyle(
+              fontSize: 40,
+              fontWeight: FontWeight.normal,
+              color: color,
+            ),
+          ),
+          Text(title, style: tSubTextStyle),
         ],
       ),
     );

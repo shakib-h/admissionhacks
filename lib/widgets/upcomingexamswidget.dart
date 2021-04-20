@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
-import 'package:admissionhacks/components/constant.dart';
-import 'package:admissionhacks/components/heading.dart';
+import 'package:admissionhacks/widgets/constant.dart';
+import 'package:admissionhacks/widgets/heading.dart';
 import 'package:flutter/foundation.dart';
 import 'package:admissionhacks/screens/upcomingexams.dart';
 

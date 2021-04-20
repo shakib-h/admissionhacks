@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_web_browser/flutter_web_browser.dart';
-import 'package:admissionhacks/components/constant.dart';
+import 'package:admissionhacks/widgets/constant.dart';
 
 class OpenBrowser extends StatelessWidget {
   final String url;
@@ -33,7 +33,13 @@ class OpenBrowser extends StatelessWidget {
                 ),
               );
             },
-            child: Text(text),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                text,
+                style: TextStyle(fontFamily: "Kalpurush", fontSize: 20),
+              ),
+            ),
           ),
         ],
         if (Platform.isIOS) ...[
@@ -51,7 +57,13 @@ class OpenBrowser extends StatelessWidget {
                 ),
               );
             },
-            child: Text(text),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                text,
+                style: tHeadingTextStyle,
+              ),
+            ),
           ),
         ],
       ],
