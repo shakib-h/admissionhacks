@@ -1,4 +1,4 @@
-import 'package:matrix/components/constant.dart';
+import 'package:admissionhacks/components/constant.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
@@ -12,7 +12,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
     this.onpress,
   }) : super(key: key);
 
-  Size get preferredSize => const Size.fromHeight(100);
+  Size get preferredSize => const Size.fromHeight(80);
 
   @override
   Widget build(BuildContext context) {
@@ -40,15 +40,10 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
               style: tHeadingTextStyle.copyWith(
                 color: Colors.white,
               )),
-          GestureDetector(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Icon(
-                  icon,
-                  color: Colors.white,
-                ),
-              ],
+          InkWell(
+            child: Icon(
+              icon,
+              color: Colors.white,
             ),
             onTap: onpress,
           ),

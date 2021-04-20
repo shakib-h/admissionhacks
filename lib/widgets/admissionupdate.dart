@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:matrix/components/constant.dart';
-import 'package:matrix/widgets/browser.dart';
-import 'package:matrix/widgets/counter.dart';
+import 'package:admissionhacks/components/constant.dart';
+import 'package:admissionhacks/widgets/browser.dart';
+import 'package:admissionhacks/widgets/counter.dart';
 
 class AdmissionUpdate extends StatelessWidget {
   const AdmissionUpdate({

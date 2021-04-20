@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_web_browser/flutter_web_browser.dart';
-import 'package:matrix/components/constant.dart';
+import 'package:admissionhacks/components/constant.dart';
 
 class OpenBrowser extends StatelessWidget {
   final String url;

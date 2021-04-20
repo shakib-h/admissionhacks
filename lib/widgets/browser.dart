@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:matrix/components/constant.dart';
-import 'package:matrix/widgets/bannerAds.dart';
+import 'package:admissionhacks/components/constant.dart';
+import 'package:admissionhacks/widgets/bannerAds.dart';
 import 'package:webview_flutter/platform_interface.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -50,6 +50,7 @@ class _BrowserState extends State<Browser> {
               child: IndexedStack(index: position, children: <Widget>[
                 WebView(
                     initialUrl: widget.url,
+                    userAgent: "admissionhacks",
                     javascriptMode: JavascriptMode.unrestricted,
                     onPageFinished: doneLoading,
                     onPageStarted: startLoading,

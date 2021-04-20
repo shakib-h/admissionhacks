@@ -2,10 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
-import 'package:matrix/components/constant.dart';
-import 'package:matrix/components/heading.dart';
+import 'package:admissionhacks/components/constant.dart';
+import 'package:admissionhacks/components/heading.dart';
 import 'package:flutter/foundation.dart';
-import 'package:matrix/screens/upcomingexams.dart';
+import 'package:admissionhacks/screens/upcomingexams.dart';
 
 class UpcomingExamsWidget extends StatelessWidget {
   const UpcomingExamsWidget({

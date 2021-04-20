@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:matrix/components/constant.dart';
-import 'package:matrix/screens/article.dart';
-import 'package:matrix/widgets/customappbar.dart';
+import 'package:admissionhacks/components/constant.dart';
+import 'package:admissionhacks/screens/article.dart';
+import 'package:admissionhacks/widgets/customappbar.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class NewsPage extends StatelessWidget {

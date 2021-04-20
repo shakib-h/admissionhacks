@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:matrix/components/constant.dart';
+import 'package:admissionhacks/components/constant.dart';
 
 class Heading extends StatelessWidget {
   final String heading;

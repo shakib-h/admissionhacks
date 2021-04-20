@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:matrix/components/constant.dart';
-import 'package:matrix/components/dot.dart';
+import 'package:admissionhacks/components/constant.dart';
+import 'package:admissionhacks/components/dot.dart';
 
 class Dropdown extends StatelessWidget {
   @override

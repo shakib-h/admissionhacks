@@ -1,5 +1,5 @@
-import 'package:matrix/components/constant.dart';
-import 'package:matrix/components/dot.dart';
+import 'package:admissionhacks/components/constant.dart';
+import 'package:admissionhacks/components/dot.dart';
 import 'package:flutter/material.dart';
 
 class Counter extends StatelessWidget {

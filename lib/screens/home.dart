@@ -1,12 +1,12 @@
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:matrix/components/constant.dart';
-import 'package:matrix/components/dropdown.dart';
+import 'package:admissionhacks/components/constant.dart';
+import 'package:admissionhacks/components/dropdown.dart';
 import 'package:flutter/material.dart';
-import 'package:matrix/widgets/admissionnews.dart';
-import 'package:matrix/widgets/admissionupdate.dart';
-import 'package:matrix/widgets/bannerAds.dart';
-import 'package:matrix/widgets/homeheader.dart';
-import 'package:matrix/widgets/upcomingexamswidget.dart';
+import 'package:admissionhacks/widgets/admissionnews.dart';
+import 'package:admissionhacks/widgets/admissionupdate.dart';
+import 'package:admissionhacks/widgets/bannerAds.dart';
+import 'package:admissionhacks/widgets/homeheader.dart';
+import 'package:admissionhacks/widgets/upcomingexamswidget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({

@@ -2,14 +2,14 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:line_icons/line_icons.dart';
-import 'package:matrix/components/constant.dart';
+import 'package:admissionhacks/components/constant.dart';
 
 import 'package:flutter/material.dart';
-import 'package:matrix/screens/explore.dart';
-import 'package:matrix/screens/home.dart';
+import 'package:admissionhacks/screens/explore.dart';
+import 'package:admissionhacks/screens/home.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:matrix/screens/news.dart';
-import 'package:matrix/screens/quiz.dart';
+import 'package:admissionhacks/screens/news.dart';
+import 'package:admissionhacks/screens/quiz.dart';
 
 class InitialPage extends StatefulWidget {
   @override

@@ -56,5 +56,5 @@ String adUnitBrowser = "ca-app-pub-1168036738005034/6711585060";
 String adUnitArticle = "ca-app-pub-1168036738005034/4206794938";
 String adUnitInterstitial = "ca-app-pub-1168036738005034/8255766870";
 
-String buildVersion = "1.0.1";
-String buildNumber = "2";
+String buildVersion = "1.0.3";
+String buildNumber = "3";
