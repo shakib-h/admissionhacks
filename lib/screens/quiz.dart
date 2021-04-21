@@ -41,6 +41,10 @@ class _QuizPageState extends State<QuizPage> {
               if (await webView.canGoBack()) {
                 webView.goBack();
               }
+            },
+            iconnext: Icons.refresh,
+            onpressnext: () {
+              webView.loadUrl(url);
             }),
         body: IndexedStack(index: position, children: <Widget>[
           Column(

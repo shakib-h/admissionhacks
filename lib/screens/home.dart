@@ -9,7 +9,9 @@ import 'package:admissionhacks/widgets/homeheader.dart';
 import 'package:admissionhacks/widgets/upcomingexamswidget.dart';
 
 class HomePage extends StatelessWidget {
+  final Function onpress;
   const HomePage({
+    this.onpress,
     Key key,
   }) : super(key: key);
 
@@ -39,7 +41,9 @@ class HomePage extends StatelessWidget {
                   adSize: AdSize.fullBanner,
                 ),
                 SizedBox(height: 10),
-                AdmissionNews(),
+                AdmissionNews(
+                  onpress: onpress,
+                ),
                 SizedBox(height: 20),
               ],
             ),

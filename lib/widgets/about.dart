@@ -1,23 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:admissionhacks/widgets/constant.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class CustomAboutDialog extends StatelessWidget {
-  final String _teemteem = 'https://teemteem.com';
-  final String _feedback = Uri(
-    scheme: 'mailto',
-    path: 'app@admissionhacks.com',
-    query:
-        'subject=AdmissionHacks Feedback&body=App Version $buildVersion.$buildNumber',
-  ).toString();
-
-  void _launchTeemteem() async => await canLaunch(_teemteem)
-      ? await launch(_teemteem)
-      : throw 'Could not launch $_teemteem';
-
-  void _launchFeedback() async => await canLaunch(_feedback)
-      ? await launch(_feedback)
-      : throw 'Could not launch $_feedback';
+  final Function launchFeedback;
+  final Function launchTeemteem;
+  CustomAboutDialog({
+    Key key,
+    this.launchFeedback,
+    this.launchTeemteem,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +60,7 @@ class CustomAboutDialog extends StatelessWidget {
                 ),
                 SizedBox(height: 30.0),
                 TextButton(
-                  onPressed: _launchTeemteem,
+                  onPressed: launchTeemteem,
                   child: Column(
                     children: [
                       Text(
@@ -87,7 +78,7 @@ class CustomAboutDialog extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     TextButton(
-                      onPressed: _launchFeedback,
+                      onPressed: launchFeedback,
                       child: Text("Send Feedback"),
                     ),
                     TextButton(

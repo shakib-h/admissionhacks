@@ -5,11 +5,15 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String textTop;
   final IconData icon;
   final Function onpress;
+  final IconData iconnext;
+  final Function onpressnext;
   const CustomAppbar({
     Key key,
     this.textTop,
     this.icon,
     this.onpress,
+    this.iconnext,
+    this.onpressnext,
   }) : super(key: key);
 
   Size get preferredSize => const Size.fromHeight(80);
@@ -40,12 +44,26 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
               style: tHeadingTextStyle.copyWith(
                 color: Colors.white,
               )),
-          InkWell(
-            child: Icon(
-              icon,
-              color: Colors.white,
-            ),
-            onTap: onpress,
+          Row(
+            children: [
+              InkWell(
+                child: Icon(
+                  icon,
+                  color: Colors.white,
+                ),
+                onTap: onpress,
+              ),
+              SizedBox(
+                width: 25,
+              ),
+              InkWell(
+                child: Icon(
+                  iconnext,
+                  color: Colors.white,
+                ),
+                onTap: onpressnext,
+              ),
+            ],
           ),
         ],
       ),

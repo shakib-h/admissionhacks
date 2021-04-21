@@ -7,7 +7,9 @@ import 'package:admissionhacks/screens/article.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class AdmissionNews extends StatelessWidget {
+  final Function onpress;
   const AdmissionNews({
+    this.onpress,
     Key key,
   }) : super(key: key);
 
@@ -18,7 +20,7 @@ class AdmissionNews extends StatelessWidget {
         Heading(
           heading: "Admission News",
           ctatext: "See more",
-          onPressed: null,
+          onPressed: onpress,
         ),
         Container(
           margin: EdgeInsets.only(top: 10),

@@ -20,13 +20,6 @@ class _InitialPageState extends State<InitialPage> {
   double offset = 0;
   int _selectedIndex = 0;
 
-  static List<Widget> _widgetOptions = <Widget>[
-    HomePage(),
-    QuizPage(),
-    NewsPage(),
-    ExplorePage(),
-  ];
-
   @override
   void initState() {
     super.initState();
@@ -63,6 +56,19 @@ class _InitialPageState extends State<InitialPage> {
 
   @override
   Widget build(BuildContext context) {
+    final List<Widget> _widgetOptions = <Widget>[
+      HomePage(
+        onpress: () => {
+          setState(() {
+            _selectedIndex = 2;
+          })
+        },
+      ),
+      QuizPage(),
+      NewsPage(),
+      ExplorePage(),
+    ];
+
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(

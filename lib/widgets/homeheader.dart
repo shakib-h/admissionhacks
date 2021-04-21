@@ -2,7 +2,7 @@ import 'package:admissionhacks/widgets/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:admissionhacks/widgets/about.dart';
-import 'package:wiredash/wiredash.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeHeader extends StatelessWidget {
   final String image;
@@ -19,11 +19,28 @@ class HomeHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final data = MediaQuery.of(context);
+    final String _teemteem = 'https://teemteem.com';
+    final String _feedback = Uri(
+      scheme: 'mailto',
+      path: 'app@admissionhacks.com',
+      query:
+          'subject=AdmissionHacks Feedback&body=App Version $buildVersion.$buildNumber',
+    ).toString();
+
+    void _launchTeemteem() async => await canLaunch(_teemteem)
+        ? await launch(_teemteem)
+        : throw 'Could not launch $_teemteem';
+
+    void _launchFeedback() async => await canLaunch(_feedback)
+        ? await launch(_feedback)
+        : throw 'Could not launch $_feedback';
+
     return ClipPath(
       clipper: MyClipper(),
       child: Container(
         padding: EdgeInsets.only(left: 40, top: 50, right: 20),
-        height: 350,
+        height: data.size.height / 3,
         width: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -44,16 +61,15 @@ class HomeHeader extends StatelessWidget {
             PopupMenuButton(
               onSelected: (value) {
                 if (value == 0) {
-                  Wiredash.of(context).setBuildProperties(
-                    buildNumber: buildNumber,
-                    buildVersion: buildVersion,
-                  );
-                  Wiredash.of(context).show();
+                  _launchFeedback();
                 }
                 if (value == 1) {
                   showDialog(
                     context: context,
-                    builder: (BuildContext context) => CustomAboutDialog(),
+                    builder: (BuildContext context) => CustomAboutDialog(
+                      launchFeedback: _launchFeedback,
+                      launchTeemteem: _launchTeemteem,
+                    ),
                   );
                 }
               },
@@ -101,7 +117,7 @@ class HomeHeader extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    top: 35 - offset / 2,
+                    top: data.size.height / 25,
                     right: 35,
                     child: Text(
                       textTop,
@@ -111,7 +127,7 @@ class HomeHeader extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    top: 65 - offset / 2,
+                    top: data.size.height / 15,
                     right: 35,
                     child: Text(
                       textBottom,
