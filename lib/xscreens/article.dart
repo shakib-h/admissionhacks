@@ -14,30 +14,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ArticlePage extends StatefulWidget {
   ArticlePage({this.data, this.offline, this.title});
-
   final data, offline, title;
-
   @override
-  State<StatefulWidget> createState() {
-    return _ArticlePageState(
-      data: data,
-      offline: offline,
-      title: title,
-    );
-  }
+  _ArticlePageState createState() => _ArticlePageState();
 }
 
 class _ArticlePageState extends State<ArticlePage>
     with SingleTickerProviderStateMixin {
   _ArticlePageState({this.data, this.offline, this.title});
-
   final data, offline, title;
 
   double lineLength = 0;
 
   Widget makeOfflineIcon = Icon(Icons.file_download);
-  AnimationController _controller;
-  SharedPreferences prefs;
+  AnimationController? _controller;
+  SharedPreferences? prefs;
 
   @override
   void initState() {
@@ -47,7 +38,7 @@ class _ArticlePageState extends State<ArticlePage>
       duration: Duration(milliseconds: 500),
       value: 1,
     );
-    WidgetsBinding.instance
+    WidgetsBinding.instance!
         .addPostFrameCallback((timeStamp) => loopOnceAtStart(context));
   }
 
@@ -57,14 +48,14 @@ class _ArticlePageState extends State<ArticlePage>
       setState(() {
         makeOfflineIcon = Icon(Icons.delete_outline);
       });
-    } else if (prefs.containsKey(generateMd5(data['title']))) {
+    } else if (prefs!.containsKey(generateMd5(data['title']))) {
       setState(() {
         makeOfflineIcon = Icon(Icons.offline_pin);
       });
     }
 
-    await _controller.forward();
-    await _controller.reverse();
+    await _controller?.forward();
+    await _controller?.reverse();
     setState(() {
       lineLength = MediaQuery.of(context).size.width * 0.3;
     });
@@ -76,7 +67,7 @@ class _ArticlePageState extends State<ArticlePage>
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller?.dispose();
     super.dispose();
   }
 

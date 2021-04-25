@@ -8,9 +8,9 @@ class OpenBrowser extends StatelessWidget {
   final String url;
   final String text;
   const OpenBrowser({
-    Key key,
-    this.url,
-    this.text,
+    Key? key,
+    required this.url,
+    required this.text,
   }) : super(key: key);
 
   @override

@@ -6,9 +6,9 @@ class BannerAds extends StatelessWidget {
   final AdSize adSize;
   //final VoidCallback onPressed;
   const BannerAds({
-    Key key,
-    this.adUnit,
-    this.adSize,
+    Key? key,
+    required this.adUnit,
+    required this.adSize,
     //this.onPressed,
   }) : super(key: key);
 

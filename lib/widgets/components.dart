@@ -5,8 +5,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 class Dot extends StatelessWidget {
   final Color color;
   const Dot({
-    Key key,
-    this.color,
+    Key? key,
+    required this.color,
   }) : super(key: key);
 
   @override
@@ -87,13 +87,13 @@ class Counter extends StatelessWidget {
   final int number;
   final Color color;
   final String title;
-  final Function onpress;
+  final Function() onpress;
   const Counter({
-    Key key,
-    this.number,
-    this.color,
-    this.title,
-    this.onpress,
+    Key? key,
+    required this.number,
+    required this.color,
+    required this.title,
+    required this.onpress,
   }) : super(key: key);
 
   @override

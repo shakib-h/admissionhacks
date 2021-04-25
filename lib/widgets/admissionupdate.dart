@@ -2,39 +2,16 @@ import 'package:admissionhacks/widgets/components.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:admissionhacks/widgets/constant.dart';
-import 'package:admissionhacks/widgets/browser.dart';
 
 class AdmissionUpdate extends StatelessWidget {
   const AdmissionUpdate({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          children: <Widget>[
-            RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text: "Admission Update\n",
-                    style: tTitleTextstyle,
-                  ),
-                  TextSpan(
-                    text: "tap on the numbers to learn more",
-                    style: TextStyle(
-                      color: tTextLightColor,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Spacer(),
-          ],
-        ),
-        SizedBox(height: 20),
         Container(
           padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
@@ -59,7 +36,7 @@ class AdmissionUpdate extends StatelessWidget {
                     backgroundColor: tPrimaryColor,
                   );
                 } else {
-                  Map<String, dynamic> documentFields = snapshot.data.data();
+                  Map<String, dynamic> documentFields = snapshot.data!.data()!;
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -67,70 +44,26 @@ class AdmissionUpdate extends StatelessWidget {
                         color: tClusterColor,
                         number: documentFields["admissionupdate"]["cluster"],
                         title: "Cluster",
-                        onpress: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Browser(
-                                title: "Cluster",
-                                url:
-                                    "https://app.admissionhacks.com/update/cluster",
-                              ),
-                            ),
-                          );
-                        },
+                        onpress: () {},
                       ),
                       Counter(
                         color: tPublishedColor,
                         number: documentFields["admissionupdate"]["published"],
                         title: "Published",
-                        onpress: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Browser(
-                                title: "Published",
-                                url:
-                                    "https://app.admissionhacks.com/update/published",
-                              ),
-                            ),
-                          );
-                        },
+                        onpress: () {},
                       ),
                       Counter(
                         color: tApplyColor,
                         number: documentFields["admissionupdate"]
                             ["application"],
                         title: "Apply",
-                        onpress: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Browser(
-                                title: "Apply",
-                                url:
-                                    "https://app.admissionhacks.com/update/application",
-                              ),
-                            ),
-                          );
-                        },
+                        onpress: () {},
                       ),
                       Counter(
                         color: tEndedColor,
                         number: documentFields["admissionupdate"]["ended"],
                         title: "Ended",
-                        onpress: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Browser(
-                                title: "Ended",
-                                url:
-                                    "https://app.admissionhacks.com/update/ended",
-                              ),
-                            ),
-                          );
-                        },
+                        onpress: () {},
                       ),
                     ],
                   );

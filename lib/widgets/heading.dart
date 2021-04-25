@@ -4,12 +4,12 @@ import 'package:admissionhacks/widgets/constant.dart';
 class Heading extends StatelessWidget {
   final String heading;
   final String ctatext;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   const Heading({
-    Key key,
-    this.heading,
-    this.ctatext,
-    this.onPressed,
+    Key? key,
+    required this.heading,
+    required this.ctatext,
+    required this.onPressed,
   }) : super(key: key);
 
   @override

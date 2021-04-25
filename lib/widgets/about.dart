@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:admissionhacks/widgets/constant.dart';
 
 class CustomAboutDialog extends StatelessWidget {
-  final Function launchFeedback;
-  final Function launchTeemteem;
+  final Function()? launchFeedback;
+  final Function()? launchTeemteem;
   CustomAboutDialog({
-    Key key,
-    this.launchFeedback,
-    this.launchTeemteem,
+    Key? key,
+    required this.launchFeedback,
+    required this.launchTeemteem,
   }) : super(key: key);
 
   @override

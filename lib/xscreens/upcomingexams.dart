@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 
 class UpcomingExams extends StatelessWidget {
   const UpcomingExams({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -67,9 +67,9 @@ class UpcomingExams extends StatelessWidget {
                   padding: EdgeInsets.zero,
                   shrinkWrap: true,
                   physics: BouncingScrollPhysics(),
-                  itemCount: snapshot.data.docs.length,
+                  itemCount: (snapshot.data! as QuerySnapshot).docs.length,
                   itemBuilder: (_, index) => ExamTile(
-                    data: snapshot.data.docs[index],
+                    data: (snapshot.data! as QuerySnapshot).docs[index],
                   ),
                 );
               }

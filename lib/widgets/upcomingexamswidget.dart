@@ -5,11 +5,11 @@ import 'package:intl/intl.dart';
 import 'package:admissionhacks/widgets/constant.dart';
 import 'package:admissionhacks/widgets/heading.dart';
 import 'package:flutter/foundation.dart';
-import 'package:admissionhacks/screens/upcomingexams.dart';
+import 'package:admissionhacks/xscreens/upcomingexams.dart';
 
 class UpcomingExamsWidget extends StatelessWidget {
   const UpcomingExamsWidget({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -94,9 +94,9 @@ class UpcomingExamsWidget extends StatelessWidget {
                     endIndent: 10,
                     color: Colors.black26,
                   ),
-                  itemCount: snapshot.data.docs.length,
+                  itemCount: (snapshot.data! as QuerySnapshot).docs.length,
                   itemBuilder: (_, index) => ExamTile(
-                    data: snapshot.data.docs[index],
+                    data: (snapshot.data! as QuerySnapshot).docs[index],
                   ),
                 );
               }
