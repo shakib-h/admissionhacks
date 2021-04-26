@@ -36,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       return Container(
                         margin: EdgeInsets.fromLTRB(7.5, 15, 7.5, 15),
                         decoration: BoxDecoration(
+                          color: Colors.black12,
                           borderRadius: BorderRadius.circular(5),
                           boxShadow: [
                             BoxShadow(
