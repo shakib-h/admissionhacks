@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "52318837020",
-    "project_id": "matrix-bd",
-    "storage_bucket": "matrix-bd.appspot.com"
+    "project_number": "259408392031",
+    "project_id": "admission-hacks",
+    "storage_bucket": "admission-hacks.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:52318837020:android:bb9a0d94ee8ac50a1d42d9",
+        "mobilesdk_app_id": "1:259408392031:android:4d3b4f61df7decbff290ea",
         "android_client_info": {
-          "package_name": "com.teemteem.matrix"
+          "package_name": "com.admissionhacks.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "52318837020-r44hqjv816tus28p0vile74gi558i5ln.apps.googleusercontent.com",
+          "client_id": "259408392031-7n02557h42079cu8kr41o0e1b89ob9q8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAeI_nZYWh7AWjTgJZ7fqDdrZ4eUE7d7p4"
+          "current_key": "AIzaSyCvrh8ivF5GI5sYGGa3i1_amgBAj6S7JUo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "52318837020-r44hqjv816tus28p0vile74gi558i5ln.apps.googleusercontent.com",
+              "client_id": "259408392031-7n02557h42079cu8kr41o0e1b89ob9q8.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

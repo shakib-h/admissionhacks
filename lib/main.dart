@@ -1,11 +1,16 @@
-import 'package:matrix/components/constant.dart';
-import 'package:matrix/screens/homeScreen.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:admissionhacks/screens/initial.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  MobileAds.instance.initialize();
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+  ));
   runApp(MyApp());
 }
 
@@ -14,15 +19,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Admission Labs',
+      themeMode: ThemeMode.light,
       theme: ThemeData(
-          scaffoldBackgroundColor: kBackgroundColor,
-          fontFamily: "Poppins",
-          textTheme: TextTheme(
-            bodyText2: TextStyle(color: kBodyTextColor),
-          )),
-      home: HomeScreen(),
+        fontFamily: "Poppins",
+      ),
+      title: 'Admission Hacks',
+      debugShowCheckedModeBanner: false,
+      home: InitialPage(),
     );
   }
 }

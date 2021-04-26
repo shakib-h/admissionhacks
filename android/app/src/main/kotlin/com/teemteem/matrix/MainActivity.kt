@@ -1,4 +1,4 @@
-package com.teemteem.matrix
+package com.admissionhacks.app
 
 import io.flutter.embedding.android.FlutterActivity
 

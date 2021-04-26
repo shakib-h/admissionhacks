@@ -1,34 +1,154 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:matrix/components/constant.dart';
+import 'package:admissionhacks/widgets/constant.dart';
+import 'package:admissionhacks/widgets/heading.dart';
+import 'package:admissionhacks/xscreens/article.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class AdmissionNews extends StatelessWidget {
   const AdmissionNews({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 20),
-      padding: EdgeInsets.all(20),
-      height: 178,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            offset: Offset(0, 10),
-            blurRadius: 30,
-            color: kShadowColor,
+    return Column(
+      children: [
+        Heading(
+          heading: "Admission News",
+          ctatext: "See more",
+          onPressed: null,
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 10),
+          padding: EdgeInsets.all(10),
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                offset: Offset(0, 10),
+                blurRadius: 30,
+                color: tShadowColor,
+              ),
+            ],
           ),
+          child: FutureBuilder(
+            future: FirebaseFirestore.instance
+                .collection('news-articles')
+                .limit(5)
+                .orderBy('timestamp', descending: true)
+                .get(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return LinearProgressIndicator(
+                  backgroundColor: tPrimaryColor,
+                );
+              } else {
+                return ListView.separated(
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  physics: BouncingScrollPhysics(),
+                  separatorBuilder: (context, index) => Divider(
+                    indent: 10,
+                    endIndent: 10,
+                    color: Colors.black26,
+                  ),
+                  itemCount: (snapshot.data! as QuerySnapshot).docs.length,
+                  itemBuilder: (_, index) => NewsTile(
+                    data: (snapshot.data! as QuerySnapshot).docs[index],
+                  ),
+                );
+              }
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class NewsTile extends StatelessWidget {
+  NewsTile({this.data});
+
+  final data;
+
+  @override
+  Widget build(BuildContext context) {
+    String titleData, imageUrlData, dateData;
+
+    titleData = data['title'];
+
+    imageUrlData = data['image-url'];
+
+    DateTime dateFetch = data['timestamp'].toDate();
+    dateData = timeago.format(dateFetch);
+
+    return TextButton(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Container(
+            width: MediaQuery.of(context).size.width * 0.6,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  dateData,
+                  style: TextStyle(
+                    color: Colors.black45,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                Wrap(
+                  children: <Widget>[
+                    Text(
+                      titleData,
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: tTitleTextColor,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "Kalpurush",
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width * 0.2,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Hero(
+                tag: titleData,
+                child: CachedNetworkImage(
+                  imageUrl: imageUrlData,
+                  placeholder: (context, url) => CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => Icon(
+                    Icons.broken_image,
+                    size: 40,
+                  ),
+                ),
+              ),
+            ),
+          )
         ],
       ),
-      child: SvgPicture.asset(
-        "assets/images/banner/undraw_reading_time_gvg0.svg",
-        fit: BoxFit.contain,
-      ),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ArticlePage(
+              data: data,
+              title: "Admission News",
+            ),
+          ),
+        );
+      },
     );
   }
 }
