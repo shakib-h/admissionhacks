@@ -19,6 +19,37 @@ class _InitialPageState extends State<InitialPage> {
   int _selectedIndex = 0;
   bool _notifications = true;
 
+  late PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _pageController.dispose();
+  }
+
+  _onTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    _pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  void _onPageChanged(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   final List<Widget> _screens = <Widget>[
     HomeScreen(),
     AdmitScreen(),
@@ -140,7 +171,7 @@ class _InitialPageState extends State<InitialPage> {
             ),
             actions: [
               Padding(
-                padding: const EdgeInsets.only(right: 2.5),
+                padding: const EdgeInsets.only(right: 3.5),
                 child: IconButton(
                   icon: Stack(
                     children: [
@@ -175,7 +206,11 @@ class _InitialPageState extends State<InitialPage> {
             backgroundColor: tBackgroundColor,
             elevation: 0,
           ),
-          body: _screens[_selectedIndex],
+          body: PageView(
+            children: _screens,
+            onPageChanged: _onPageChanged,
+            controller: _pageController,
+          ),
           bottomNavigationBar: Container(
             decoration: BoxDecoration(
               color: Colors.transparent,
@@ -202,7 +237,7 @@ class _InitialPageState extends State<InitialPage> {
               showUnselectedLabels: true,
               showSelectedLabels: true,
               currentIndex: _selectedIndex,
-              onTap: (index) => setState(() => _selectedIndex = index),
+              onTap: _onTapped,
               items: [
                 BottomNavigationBarItem(
                     icon: Icon(LineIcons.home), label: 'হোম'),
