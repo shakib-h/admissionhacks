@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:admissionhacks/widgets/constant.dart';
+import 'package:admissionhacks/xwidgets/constant.dart';
 import 'package:admissionhacks/xscreens/article.dart';
 import 'package:timeago/timeago.dart' as timeago;
 

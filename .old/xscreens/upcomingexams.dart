@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:admissionhacks/widgets/constant.dart';
+import 'package:admissionhacks/xwidgets/constant.dart';
 import 'package:flutter/foundation.dart';
 
 class UpcomingExams extends StatelessWidget {

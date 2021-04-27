@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:admissionhacks/widgets/constant.dart';
-import 'package:admissionhacks/widgets/heading.dart';
+import 'package:admissionhacks/xwidgets/heading.dart';
 import 'package:flutter/foundation.dart';
 import 'package:admissionhacks/xscreens/upcomingexams.dart';
 

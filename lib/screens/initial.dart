@@ -1,11 +1,10 @@
 import 'dart:io';
+import 'package:admissionhacks/components/constant.dart';
 import 'package:admissionhacks/screens/explore.dart';
 import 'package:admissionhacks/screens/home.dart';
 import 'package:admissionhacks/screens/news.dart';
 import 'package:admissionhacks/screens/notifications.dart';
 import 'package:admissionhacks/screens/practice.dart';
-import 'package:admissionhacks/widgets/about.dart';
-import 'package:admissionhacks/widgets/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:line_icons/line_icons.dart';
@@ -55,8 +54,8 @@ class _InitialPageState extends State<InitialPage> {
   final String _feedback = Uri(
           scheme: 'mailto',
           path: 'app@admissionhacks.com',
-          query:
-              'subject=AdmissionHacks Feedback&body=App Version $buildVersion.$buildNumber')
+          query: 'subject=AdmissionHacks Feedback&body=App Version ')
+      //TODO:$buildVersion.$buildNumber versioning
       .toString();
 
   void _launchTeemteem() async => await canLaunch(_teemteem)
@@ -106,13 +105,13 @@ class _InitialPageState extends State<InitialPage> {
         _launchFeedback();
       }
       if (value == 1) {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) => CustomAboutDialog(
-            launchFeedback: _launchFeedback,
-            launchTeemteem: _launchTeemteem,
-          ),
-        );
+        //showDialog(
+        //context: context,
+        //builder: (BuildContext context) => CustomAboutDialog(
+        //launchFeedback: _launchFeedback,
+        //launchTeemteem: _launchTeemteem,
+        //),
+        return null;
       }
     });
   }
@@ -123,6 +122,14 @@ class _InitialPageState extends State<InitialPage> {
       onWillPop: _onWillPop,
       child: Scaffold(
           appBar: AppBar(
+            leading: IconButton(
+              icon: Icon(LineIcons.bars, size: 25),
+              tooltip: 'মেনু',
+              onPressed: () {
+                _showPopupMenu();
+              },
+            ),
+            centerTitle: true,
             title: Text(
               "Admission Hacks",
               style: TextStyle(
@@ -134,7 +141,7 @@ class _InitialPageState extends State<InitialPage> {
               IconButton(
                 icon: Stack(
                   children: [
-                    Icon(LineIcons.bell),
+                    Icon(LineIcons.bell, size: 25),
                     _notifications != false
                         ? Positioned(
                             child: Icon(
@@ -157,46 +164,52 @@ class _InitialPageState extends State<InitialPage> {
                       ));
                 },
               ),
-              IconButton(
-                icon: Icon(LineIcons.verticalEllipsis),
-                tooltip: 'মেনু',
-                onPressed: () {
-                  _showPopupMenu();
-                },
-              ),
             ],
             iconTheme: IconThemeData(
               color: Colors.black,
             ),
-            backgroundColor: Colors.white,
+            backgroundColor: tBackgroundColor,
             elevation: 0,
           ),
           body: _widgetOptions[_selectedIndex],
-          bottomNavigationBar: SnakeNavigationBar.color(
-            elevation: 20,
-            // height: 80,
-            behaviour: SnakeBarBehaviour.pinned,
-            //shape: RoundedRectangleBorder(
-            //borderRadius: BorderRadius.all(Radius.circular(25)),
-            //),
-            snakeShape: SnakeShape.indicator,
-            padding: EdgeInsets.zero,
-            snakeViewColor: Colors.black,
-            selectedItemColor: Colors.black,
-            unselectedItemColor: Colors.black87,
-            showUnselectedLabels: true,
-            showSelectedLabels: true,
-            currentIndex: _selectedIndex,
-            onTap: (index) => setState(() => _selectedIndex = index),
-            items: [
-              BottomNavigationBarItem(icon: Icon(LineIcons.home), label: 'হোম'),
-              BottomNavigationBarItem(
-                  icon: Icon(LineIcons.graduationCap), label: 'প্র্যাকটিস'),
-              BottomNavigationBarItem(
-                  icon: Icon(LineIcons.newspaper), label: 'নিউজ'),
-              BottomNavigationBarItem(
-                  icon: Icon(LineIcons.compass), label: 'এক্সপ্লোর'),
-            ],
+          bottomNavigationBar: Container(
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 3.0,
+                  offset: Offset(0, 0),
+                  color: Colors.black45,
+                ),
+              ],
+            ),
+            child: SnakeNavigationBar.color(
+              elevation: 0,
+              // height: 80,
+              behaviour: SnakeBarBehaviour.pinned,
+              //shape: RoundedRectangleBorder(
+              //borderRadius: BorderRadius.all(Radius.circular(25)),
+              //),
+              snakeShape: SnakeShape.indicator,
+              padding: EdgeInsets.zero,
+              snakeViewColor: Colors.black,
+              selectedItemColor: Colors.black,
+              unselectedItemColor: Colors.black87,
+              showUnselectedLabels: true,
+              showSelectedLabels: true,
+              currentIndex: _selectedIndex,
+              onTap: (index) => setState(() => _selectedIndex = index),
+              items: [
+                BottomNavigationBarItem(
+                    icon: Icon(LineIcons.home), label: 'হোম'),
+                BottomNavigationBarItem(
+                    icon: Icon(LineIcons.graduationCap), label: 'প্র্যাকটিস'),
+                BottomNavigationBarItem(
+                    icon: Icon(LineIcons.newspaper), label: 'নিউজ'),
+                BottomNavigationBarItem(
+                    icon: Icon(LineIcons.compass), label: 'এক্সপ্লোর'),
+              ],
+            ),
           )),
     );
   }

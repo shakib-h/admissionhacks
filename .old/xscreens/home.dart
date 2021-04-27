@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:admissionhacks/widgets/constant.dart';
+import 'package:admissionhacks/xwidgets/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:admissionhacks/widgets/admissionnews.dart';
-import 'package:admissionhacks/widgets/admissionupdate.dart';
-import 'package:admissionhacks/widgets/bannerAds.dart';
-import 'package:admissionhacks/widgets/upcomingexamswidget.dart';
+import 'package:admissionhacks/xwidgets/admissionnews.dart';
+import 'package:admissionhacks/xwidgets/admissionupdate.dart';
+import 'package:admissionhacks/xwidgets/bannerAds.dart';
+import 'package:admissionhacks/xwidgets/upcomingexamswidget.dart';
 
 class OldHomePage extends StatefulWidget {
   const OldHomePage({

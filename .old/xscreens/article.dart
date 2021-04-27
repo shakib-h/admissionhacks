@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
-import 'package:admissionhacks/widgets/openbrowser.dart';
-import 'package:admissionhacks/widgets/constant.dart';
+import 'package:admissionhacks/xwidgets/openbrowser.dart';
+import 'package:admissionhacks/components/constant.dart';
 import 'package:crypto/crypto.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 

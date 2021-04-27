@@ -1,5 +1,5 @@
-import 'package:admissionhacks/widgets/constant.dart';
-import 'package:admissionhacks/widgets/bannerAds.dart';
+import 'package:admissionhacks/xwidgets/constant.dart';
+import 'package:admissionhacks/xwidgets/bannerAds.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
