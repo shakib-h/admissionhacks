@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'package:admissionhacks/components/constant.dart';
-import 'package:admissionhacks/screens/explore.dart';
+import 'package:admissionhacks/screens/admit.dart';
 import 'package:admissionhacks/screens/home.dart';
 import 'package:admissionhacks/screens/news.dart';
 import 'package:admissionhacks/screens/notifications.dart';
-import 'package:admissionhacks/screens/practice.dart';
+import 'package:admissionhacks/screens/study.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:line_icons/line_icons.dart';
@@ -19,21 +19,21 @@ class _InitialPageState extends State<InitialPage> {
   int _selectedIndex = 0;
   bool _notifications = true;
 
-  final List<Widget> _widgetOptions = <Widget>[
+  final List<Widget> _screens = <Widget>[
     HomeScreen(),
-    PracticeScreen(),
+    AdmitScreen(),
+    StudyScreen(),
     NewsScreen(),
-    ExploreScreen(),
   ];
 
   Future<bool> _onWillPop() async {
     return (await showDialog(
           context: context,
           builder: (context) => new AlertDialog(
-            title: Text(
+            content: Text(
               'Are you sure you want to close the app?',
-              style: TextStyle(fontWeight: FontWeight.normal),
             ),
+            insetPadding: EdgeInsets.zero,
             actions: <Widget>[
               TextButton(
                 onPressed: () => Navigator.of(context).pop(false),
@@ -45,6 +45,7 @@ class _InitialPageState extends State<InitialPage> {
                 child: Text('YES'),
               ),
             ],
+            contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 0),
           ),
         )) ??
         false;
@@ -69,7 +70,7 @@ class _InitialPageState extends State<InitialPage> {
   _showPopupMenu() {
     showMenu(
       context: context,
-      position: RelativeRect.fromLTRB(25.0, 50.0, 0.0,
+      position: RelativeRect.fromLTRB(0.0, 50.0, 25.0,
           0.0), //position where you want to show the menu on screen
       items: [
         PopupMenuItem(
@@ -138,31 +139,34 @@ class _InitialPageState extends State<InitialPage> {
               ),
             ),
             actions: [
-              IconButton(
-                icon: Stack(
-                  children: [
-                    Icon(LineIcons.bell, size: 25),
-                    _notifications != false
-                        ? Positioned(
-                            child: Icon(
-                              Icons.brightness_1,
-                              size: 8,
-                              color: Colors.red,
-                            ),
-                            right: 0,
-                            top: 0,
-                          )
-                        : Material(),
-                  ],
+              Padding(
+                padding: const EdgeInsets.only(right: 2.5),
+                child: IconButton(
+                  icon: Stack(
+                    children: [
+                      Icon(LineIcons.bell, size: 25),
+                      _notifications != false
+                          ? Positioned(
+                              child: Icon(
+                                Icons.brightness_1,
+                                size: 8,
+                                color: Colors.redAccent,
+                              ),
+                              right: 0,
+                              top: 0,
+                            )
+                          : Material(),
+                    ],
+                  ),
+                  tooltip: 'নোটিফিকেশন',
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NoticationsScreen(),
+                        ));
+                  },
                 ),
-                tooltip: 'নোটিফিকেশন',
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => NoticationsScreen(),
-                      ));
-                },
               ),
             ],
             iconTheme: IconThemeData(
@@ -171,7 +175,7 @@ class _InitialPageState extends State<InitialPage> {
             backgroundColor: tBackgroundColor,
             elevation: 0,
           ),
-          body: _widgetOptions[_selectedIndex],
+          body: _screens[_selectedIndex],
           bottomNavigationBar: Container(
             decoration: BoxDecoration(
               color: Colors.transparent,
@@ -203,11 +207,11 @@ class _InitialPageState extends State<InitialPage> {
                 BottomNavigationBarItem(
                     icon: Icon(LineIcons.home), label: 'হোম'),
                 BottomNavigationBarItem(
-                    icon: Icon(LineIcons.graduationCap), label: 'প্র্যাকটিস'),
+                    icon: Icon(LineIcons.graduationCap), label: 'ভর্তি'),
+                BottomNavigationBarItem(
+                    icon: Icon(LineIcons.bookOpen), label: 'স্টাডি'),
                 BottomNavigationBarItem(
                     icon: Icon(LineIcons.newspaper), label: 'নিউজ'),
-                BottomNavigationBarItem(
-                    icon: Icon(LineIcons.compass), label: 'এক্সপ্লোর'),
               ],
             ),
           )),

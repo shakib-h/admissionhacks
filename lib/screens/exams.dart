@@ -2,7 +2,7 @@ import 'package:admissionhacks/components/constant.dart';
 import 'package:bangla_utilities/bangla_utilities.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_web_browser/flutter_web_browser.dart';
 
 class ExamsScreen extends StatelessWidget {
   @override
@@ -91,13 +91,18 @@ class ExamsScreen extends StatelessWidget {
                       )
                     ],
                   ),
-                  onTap: () async {
-                    if (url.isNotEmpty) {
-                      await canLaunch(url)
-                          ? await launch(url)
-                          : throw 'Could not launch $url';
-                    }
-                    return null;
+                  onTap: () {
+                    FlutterWebBrowser.openWebPage(
+                      url: url,
+                      customTabsOptions: CustomTabsOptions(
+                        //secondaryToolbarColor: Colors.green,
+                        //navigationBarColor: Colors.amber,
+                        addDefaultShareMenuItem: true,
+                        instantAppsEnabled: true,
+                        showTitle: true,
+                        urlBarHidingEnabled: true,
+                      ),
+                    );
                   },
                 );
               },
