@@ -36,8 +36,7 @@ class FormFillCard extends StatelessWidget {
           child: FutureBuilder(
             future: FirebaseFirestore.instance
                 .collection('formfillup')
-                .orderBy('time')
-                .where('time', isGreaterThan: DateTime.now())
+                .orderBy('start')
                 .limit(4)
                 .get(),
             builder: (context, snapshot) {
@@ -63,54 +62,87 @@ class FormFillCard extends StatelessWidget {
                   itemBuilder: (_, index) {
                     QueryDocumentSnapshot formfillData =
                         (snapshot.data! as QuerySnapshot).docs[index];
-                    String title = formfillData["title"];
-                    String url = formfillData["url"];
-                    DateTime date = formfillData['time'].toDate();
-                    int daysLeft = date.difference(DateTime.now()).inDays;
-                    int hoursLeft = date.difference(DateTime.now()).inHours;
+                    bool announced = formfillData['announced'];
+                    String title = formfillData['title'];
+                    String subtitle = formfillData['subtitle'];
+                    String url = formfillData['url'];
+                    DateTime now = DateTime.now();
+                    DateTime start = formfillData['start'].toDate();
+                    int startsIn = start.difference(now).inDays;
+                    DateTime end = formfillData['end'].toDate();
+                    int daysLeft = end.difference(now).inDays;
+                    int hoursLeft = end.difference(now).inHours;
+
                     return Material(
                       color: Colors.transparent,
                       child: ListTile(
                         dense: true,
-                        title: Text(title, style: tListTextStyle),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              (daysLeft == 0)
-                                  ? BanglaUtility.englishToBanglaDigit(
-                                          englishDigit: hoursLeft) +
-                                      " ঘণ্টা বাকি"
-                                  : BanglaUtility.englishToBanglaDigit(
-                                          englishDigit: daysLeft) +
-                                      " দিন বাকি",
-                              style: tListTextStyle.copyWith(
-                                  color: (daysLeft < 5)
-                                      ? Colors.redAccent
-                                      : tListTextColor),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            TextButton(
-                              onPressed: null,
-                              child: Text(
-                                "APPLY",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              style: TextButton.styleFrom(
-                                backgroundColor: Colors.black,
-                                padding: EdgeInsets.zero,
-                                visualDensity:
-                                    VisualDensity(horizontal: -2, vertical: -2),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                ),
-                              ),
-                            )
-                          ],
+                        title: Text(
+                          title,
+                          style: tListTextStyle,
                         ),
+                        subtitle: (subtitle.isNotEmpty)
+                            ? Text(
+                                subtitle,
+                              )
+                            : null,
+                        trailing: (announced == false)
+                            ? Text(
+                                "এখনো ঘোষণা হয়নি",
+                                style: tListTextStyle,
+                              )
+                            : Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  (start.isAfter(now))
+                                      ? Text(
+                                          BanglaUtility.englishToBanglaDigit(
+                                                  englishDigit: startsIn) +
+                                              " দিনে শুরু হবে",
+                                          style: tListTextStyle,
+                                        )
+                                      : Text(
+                                          (daysLeft == 0)
+                                              ? BanglaUtility
+                                                      .englishToBanglaDigit(
+                                                          englishDigit:
+                                                              hoursLeft) +
+                                                  " ঘণ্টা বাকি"
+                                              : BanglaUtility
+                                                      .englishToBanglaDigit(
+                                                          englishDigit:
+                                                              daysLeft) +
+                                                  " দিন বাকি",
+                                          style: tListTextStyle.copyWith(
+                                              color: (daysLeft < 5)
+                                                  ? Colors.redAccent
+                                                  : tListTextColor),
+                                        ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  TextButton(
+                                    onPressed: null,
+                                    child: Text(
+                                      (start.isBefore(now))
+                                          ? "APPLY"
+                                          : "DETAILS",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    style: TextButton.styleFrom(
+                                      backgroundColor: Colors.black,
+                                      padding: EdgeInsets.zero,
+                                      visualDensity: VisualDensity(
+                                          horizontal: 0, vertical: -2),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(18.0),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
                         onTap: () {
                           FlutterWebBrowser.openWebPage(
                             url: url,

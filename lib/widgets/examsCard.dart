@@ -37,7 +37,6 @@ class ExamsCard extends StatelessWidget {
             future: FirebaseFirestore.instance
                 .collection('examdate')
                 .orderBy('time')
-                .where('time', isGreaterThan: DateTime.now())
                 .limit(4)
                 .get(),
             builder: (context, snapshot) {
@@ -61,42 +60,58 @@ class ExamsCard extends StatelessWidget {
                   physics: BouncingScrollPhysics(),
                   itemCount: (snapshot.data! as QuerySnapshot).docs.length,
                   itemBuilder: (_, index) {
-                    QueryDocumentSnapshot formfillData =
+                    QueryDocumentSnapshot examData =
                         (snapshot.data! as QuerySnapshot).docs[index];
-                    String title = formfillData["title"];
-                    String url = formfillData["url"];
-                    DateTime date = formfillData['time'].toDate();
-                    int daysLeft = date.difference(DateTime.now()).inDays;
-                    int hoursLeft = date.difference(DateTime.now()).inHours;
+                    String title = examData["title"];
+                    String subtitle = examData["subtitle"];
+                    String url = examData["url"];
+                    DateTime date = examData['time'].toDate();
+                    DateTime now = DateTime.now();
+                    int daysLeft = date.difference(now).inDays;
+                    int hoursLeft = date.difference(now).inHours;
                     return Material(
                       color: Colors.transparent,
                       child: ListTile(
                         dense: true,
-                        title: Text(title, style: tListTextStyle),
+                        title: Text(
+                          title,
+                          style: tListTextStyle,
+                        ),
+                        subtitle: (subtitle.isNotEmpty)
+                            ? Text(
+                                subtitle,
+                              )
+                            : null,
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Text(
-                              (daysLeft == 0)
-                                  ? BanglaUtility.englishToBanglaDigit(
-                                          englishDigit: hoursLeft) +
-                                      " ঘণ্টা বাকি"
-                                  : BanglaUtility.englishToBanglaDigit(
-                                          englishDigit: daysLeft) +
-                                      " দিন বাকি",
-                              style: tListTextStyle.copyWith(
-                                  color: (daysLeft < 5)
-                                      ? Colors.redAccent
-                                      : tListTextColor),
-                            ),
+                            (date.isAfter(now))
+                                ? Text(
+                                    (daysLeft == 0)
+                                        ? BanglaUtility.englishToBanglaDigit(
+                                                englishDigit: hoursLeft) +
+                                            " ঘণ্টা বাকি"
+                                        : BanglaUtility.englishToBanglaDigit(
+                                                englishDigit: daysLeft) +
+                                            " দিন বাকি",
+                                    style: tListTextStyle.copyWith(
+                                        color: (daysLeft < 5)
+                                            ? Colors.redAccent
+                                            : tListTextColor),
+                                  )
+                                : Text(
+                                    "পরীক্ষা শেষ",
+                                    style: tListTextStyle.copyWith(
+                                        color: Colors.redAccent),
+                                  ),
                             SizedBox(
                               width: 10,
                             ),
                             TextButton(
                               onPressed: null,
                               child: Text(
-                                "DETAILS",
+                                (date.isAfter(now)) ? "DETAILS" : "RESULT",
                                 style: TextStyle(color: Colors.white),
                               ),
                               style: TextButton.styleFrom(

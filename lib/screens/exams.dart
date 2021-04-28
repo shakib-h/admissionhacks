@@ -3,6 +3,7 @@ import 'package:bangla_utilities/bangla_utilities.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_browser/flutter_web_browser.dart';
+import 'package:intl/intl.dart';
 
 class ExamsScreen extends StatelessWidget {
   @override
@@ -21,7 +22,7 @@ class ExamsScreen extends StatelessWidget {
       body: FutureBuilder(
         future: FirebaseFirestore.instance
             .collection('examdate')
-            .where('time', isGreaterThan: DateTime.now())
+            .orderBy('time')
             .get(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
@@ -47,28 +48,55 @@ class ExamsScreen extends StatelessWidget {
                 QueryDocumentSnapshot formfillData =
                     (snapshot.data! as QuerySnapshot).docs[index];
                 String title = formfillData["title"];
+                String subtitle = formfillData["subtitle"];
                 String url = formfillData["url"];
+                DateTime now = DateTime.now();
                 DateTime date = formfillData['time'].toDate();
                 int daysLeft = date.difference(DateTime.now()).inDays;
                 int hoursLeft = date.difference(DateTime.now()).inHours;
+                String dateFormat = DateFormat("dd MMM").format(date);
                 return ListTile(
-                  title: Text(title, style: tListTextStyle),
+                  title: Text(
+                    title,
+                    style: tListTextStyle,
+                  ),
+                  subtitle: (subtitle.isNotEmpty)
+                      ? Text(
+                          subtitle,
+                        )
+                      : null,
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(
-                        (daysLeft == 0)
-                            ? BanglaUtility.englishToBanglaDigit(
-                                    englishDigit: hoursLeft) +
-                                " ঘণ্টা বাকি"
-                            : BanglaUtility.englishToBanglaDigit(
-                                    englishDigit: daysLeft) +
-                                " দিন বাকি",
-                        style: tListTextStyle.copyWith(
-                            color: (daysLeft < 5)
-                                ? Colors.redAccent
-                                : tListTextColor),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          (date.isAfter(now))
+                              ? Text(
+                                  (daysLeft == 0)
+                                      ? BanglaUtility.englishToBanglaDigit(
+                                              englishDigit: hoursLeft) +
+                                          " ঘণ্টা বাকি"
+                                      : BanglaUtility.englishToBanglaDigit(
+                                              englishDigit: daysLeft) +
+                                          " দিন বাকি",
+                                  textAlign: TextAlign.center,
+                                  style: tListTextStyle.copyWith(
+                                      color: (daysLeft < 5)
+                                          ? Colors.redAccent
+                                          : tListTextColor),
+                                )
+                              : Text(
+                                  "পরীক্ষা শেষ",
+                                  style: tListTextStyle.copyWith(
+                                      color: Colors.redAccent),
+                                ),
+                          Text(
+                            dateFormat,
+                            style: tListTextStyle.copyWith(fontSize: 10),
+                          ),
+                        ],
                       ),
                       SizedBox(
                         width: 10,
@@ -76,7 +104,7 @@ class ExamsScreen extends StatelessWidget {
                       TextButton(
                         onPressed: null,
                         child: Text(
-                          "DETAILS",
+                          (date.isAfter(now)) ? "DETAILS" : "RESULT",
                           style: TextStyle(color: Colors.white),
                         ),
                         style: TextButton.styleFrom(
