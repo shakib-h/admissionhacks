@@ -9,6 +9,7 @@ import 'package:flutter_web_browser/flutter_web_browser.dart';
 class FormFillCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
     return Column(
       children: [
         Heading(
@@ -36,7 +37,9 @@ class FormFillCard extends StatelessWidget {
           child: FutureBuilder(
             future: FirebaseFirestore.instance
                 .collection('formfillup')
-                .orderBy('start')
+                //.orderBy('end')
+                //needs to fix it
+                .where('end', isGreaterThan: now)
                 .limit(4)
                 .get(),
             builder: (context, snapshot) {

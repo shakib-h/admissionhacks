@@ -68,56 +68,64 @@ class FormFillScreen extends StatelessWidget {
                           subtitle,
                         )
                       : null,
-                  trailing: (announced == false)
-                      ? Text(
-                          "এখনো ঘোষণা হয়নি",
-                          style: tListTextStyle,
-                        )
-                      : Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            (start.isAfter(now))
-                                ? Text(
-                                    BanglaUtility.englishToBanglaDigit(
-                                            englishDigit: startsIn) +
-                                        " দিনে শুরু হবে",
-                                    style: tListTextStyle,
-                                  )
-                                : Text(
-                                    (daysLeft == 0)
-                                        ? BanglaUtility.englishToBanglaDigit(
-                                                englishDigit: hoursLeft) +
-                                            " ঘণ্টা বাকি"
-                                        : BanglaUtility.englishToBanglaDigit(
-                                                englishDigit: daysLeft) +
-                                            " দিন বাকি",
-                                    style: tListTextStyle.copyWith(
-                                        color: (daysLeft < 5)
-                                            ? Colors.redAccent
-                                            : tListTextColor),
-                                  ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            TextButton(
-                              onPressed: null,
-                              child: Text(
-                                (start.isBefore(now)) ? "APPLY" : "DETAILS",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              style: TextButton.styleFrom(
-                                backgroundColor: Colors.black,
-                                padding: EdgeInsets.zero,
-                                visualDensity:
-                                    VisualDensity(horizontal: 0, vertical: -2),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                ),
-                              ),
+                  trailing: (end.isBefore(now))
+                      ? Text("সময় শেষ",
+                          style:
+                              tListTextStyle.copyWith(color: Colors.redAccent))
+                      : (announced == false)
+                          ? Text(
+                              "এখনো ঘোষণা হয়নি",
+                              style: tListTextStyle,
                             )
-                          ],
-                        ),
+                          : Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                (start.isAfter(now))
+                                    ? Text(
+                                        BanglaUtility.englishToBanglaDigit(
+                                                englishDigit: startsIn) +
+                                            " দিনে শুরু হবে",
+                                        style: tListTextStyle,
+                                      )
+                                    : Text(
+                                        (daysLeft == 0)
+                                            ? BanglaUtility
+                                                    .englishToBanglaDigit(
+                                                        englishDigit:
+                                                            hoursLeft) +
+                                                " ঘণ্টা বাকি"
+                                            : BanglaUtility
+                                                    .englishToBanglaDigit(
+                                                        englishDigit:
+                                                            daysLeft) +
+                                                " দিন বাকি",
+                                        style: tListTextStyle.copyWith(
+                                            color: (daysLeft < 5)
+                                                ? Colors.redAccent
+                                                : tListTextColor),
+                                      ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                TextButton(
+                                  onPressed: null,
+                                  child: Text(
+                                    (start.isBefore(now)) ? "APPLY" : "DETAILS",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  style: TextButton.styleFrom(
+                                    backgroundColor: Colors.black,
+                                    padding: EdgeInsets.zero,
+                                    visualDensity: VisualDensity(
+                                        horizontal: 0, vertical: -2),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18.0),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
                   onTap: () {
                     FlutterWebBrowser.openWebPage(
                       url: url,

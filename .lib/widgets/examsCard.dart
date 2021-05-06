@@ -9,6 +9,7 @@ import 'package:flutter_web_browser/flutter_web_browser.dart';
 class ExamsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
     return Column(
       children: [
         Heading(
@@ -37,6 +38,7 @@ class ExamsCard extends StatelessWidget {
             future: FirebaseFirestore.instance
                 .collection('examdate')
                 .orderBy('time')
+                .where('time', isGreaterThan: now)
                 .limit(4)
                 .get(),
             builder: (context, snapshot) {
@@ -66,7 +68,6 @@ class ExamsCard extends StatelessWidget {
                     String subtitle = examData["subtitle"];
                     String url = examData["url"];
                     DateTime date = examData['time'].toDate();
-                    DateTime now = DateTime.now();
                     int daysLeft = date.difference(now).inDays;
                     int hoursLeft = date.difference(now).inHours;
                     return Material(
