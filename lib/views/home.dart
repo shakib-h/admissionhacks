@@ -32,13 +32,17 @@ class _HomeState extends State<Home> {
                           noOfQuestions:
                               (snapshot.data! as QuerySnapshot).docs.length,
                           imageUrl: (snapshot.data! as QuerySnapshot)
-                              .docs[index]['quizImgUrl'],
-                          title: (snapshot.data! as QuerySnapshot).docs[index]
-                              ['quizTitle'],
+                              .docs[index]
+                              .data()['quizImgUrl'],
+                          title: (snapshot.data! as QuerySnapshot)
+                              .docs[index]
+                              .data()['quizTitle'],
                           description: (snapshot.data! as QuerySnapshot)
-                              .docs[index]['quizDesc'],
-                          id: (snapshot.data! as QuerySnapshot).docs[index]
-                              ["id"],
+                              .docs[index]
+                              .data()['quizDesc'],
+                          id: (snapshot.data! as QuerySnapshot)
+                              .docs[index]
+                              .data()["id"],
                         );
                       });
             },

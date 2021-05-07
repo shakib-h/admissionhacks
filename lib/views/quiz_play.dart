@@ -54,14 +54,14 @@ class _QuizPlayState extends State<QuizPlay> {
       DocumentSnapshot questionSnapshot) {
     QuestionModel questionModel = new QuestionModel();
 
-    questionModel.question = questionSnapshot["question"];
+    questionModel.question = questionSnapshot.data()!["question"];
 
     /// shuffling the options
     List<String> options = [
-      questionSnapshot["option1"],
-      questionSnapshot["option2"],
-      questionSnapshot["option3"],
-      questionSnapshot["option4"]
+      questionSnapshot.data()!["option1"],
+      questionSnapshot.data()!["option2"],
+      questionSnapshot.data()!["option3"],
+      questionSnapshot.data()!["option4"]
     ];
     options.shuffle();
 
@@ -69,7 +69,7 @@ class _QuizPlayState extends State<QuizPlay> {
     questionModel.option2 = options[1];
     questionModel.option3 = options[2];
     questionModel.option4 = options[3];
-    questionModel.correctOption = questionSnapshot["option1"];
+    questionModel.correctOption = questionSnapshot.data()!["option1"];
     questionModel.answered = false;
 
     print(questionModel.correctOption.toLowerCase());
