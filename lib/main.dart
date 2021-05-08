@@ -1,15 +1,14 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:admissionhacks/helper/authenticate.dart';
-import 'package:admissionhacks/helper/constants.dart';
-import 'package:admissionhacks/views/home.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:admissionhacks/screens/initial.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  FirebaseAnalytics();
   MobileAds.instance.initialize();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
@@ -17,38 +16,18 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  bool isUserLoggedIn = false;
-
-  @override
-  void initState() {
-    getLoggedInState();
-    super.initState();
-  }
-
-  getLoggedInState() async {
-    await Constants.getUerLoggedInSharedPreference().then((value) {
-      setState(() {
-        isUserLoggedIn = value;
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Quiz App',
-      debugShowCheckedModeBanner: false,
+      themeMode: ThemeMode.light,
       theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        fontFamily: "Poppins",
       ),
-      home: isUserLoggedIn ? Home() : Authenticate(),
+      title: 'Admission Hacks',
+      debugShowCheckedModeBanner: false,
+      home: InitialPage(),
     );
   }
 }
