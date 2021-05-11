@@ -54,10 +54,8 @@ class AuthService {
   Future<void> updateUserData(User user) {
     DocumentReference reportRef = _db.collection('reports').doc(user.uid);
 
-    return reportRef.set(
-      {'uid': user.uid, 'lastActivity': DateTime.now()},
-      //merge: true
-    );
+    return reportRef.set({'uid': user.uid, 'lastActivity': DateTime.now()},
+        SetOptions(merge: true));
   }
 
   // Sign out
