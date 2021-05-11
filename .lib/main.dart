@@ -1,3 +1,6 @@
+import 'package:admissionhacks/screens/admit.dart';
+import 'package:admissionhacks/screens/news.dart';
+import 'package:admissionhacks/screens/study.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +30,7 @@ class MyApp extends StatelessWidget {
       ),
       title: 'Admission Hacks',
       debugShowCheckedModeBanner: false,
-      home: InitialPage(),
+      home: InitialScreen(),
     );
   }
 }

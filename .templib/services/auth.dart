@@ -4,16 +4,16 @@ import 'package:admissionhacks/models/user.dart';
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  MyUser? _userFromFirebaseUser(User user) {
-    return user != null ? MyUser(uid: user.uid) : null;
+  AUser _userFromFirebaseUser(User user) {
+    return user != null ? AUser(uid: user.uid) : null;
   }
 
   Future signInEmailAndPass(String email, String password) async {
     try {
       UserCredential authResult = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
-      User? firebaseUser = authResult.user;
-      return _userFromFirebaseUser(firebaseUser!);
+      User firebaseUser = authResult.user;
+      return _userFromFirebaseUser(firebaseUser);
     } catch (e) {
       print(e);
     }
@@ -23,8 +23,8 @@ class AuthService {
     try {
       UserCredential authResult = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      User? user = authResult.user;
-      return _userFromFirebaseUser(user!);
+      User user = authResult.user;
+      return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());
       return null;

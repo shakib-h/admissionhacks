@@ -1,4 +1,4 @@
-import 'package:admissionhacks/components/constant.dart';
+import 'package:admissionhacks/shared/constant.dart';
 import 'package:bangla_utilities/bangla_utilities.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';

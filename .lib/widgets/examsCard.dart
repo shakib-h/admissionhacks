@@ -1,5 +1,5 @@
-import 'package:admissionhacks/components/constant.dart';
-import 'package:admissionhacks/components/heading.dart';
+import 'package:admissionhacks/shared/constant.dart';
+import 'package:admissionhacks/shared/heading.dart';
 import 'package:admissionhacks/screens/exams.dart';
 import 'package:bangla_utilities/bangla_utilities.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
