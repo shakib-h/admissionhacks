@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:admissionhacks/services/database.dart';
 import 'package:admissionhacks/views/add_question.dart';
-import 'package:admissionhacks/widget/widget.dart';
+import 'package:admissionhacks/widgets/widget.dart';
 import 'package:random_string/random_string.dart';
 
 class CreateQuiz extends StatefulWidget {

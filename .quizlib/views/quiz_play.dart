@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:admissionhacks/models/question_model.dart';
 import 'package:admissionhacks/services/database.dart';
-import 'package:admissionhacks/widget/widget.dart';
+import 'package:admissionhacks/widgets/widget.dart';
 import 'package:admissionhacks/widgets/quiz_play_widgets.dart';
 
 class QuizPlay extends StatefulWidget {
@@ -42,7 +42,7 @@ class _QuizPlayState extends State<QuizPlay> {
 
     if (infoStream == null) {
       infoStream = Stream<List<int>>.periodic(Duration(milliseconds: 100), (x) {
-        print("this is x $x");
+        //print("this is x $x");
         return [_correct, _incorrect];
       });
     }

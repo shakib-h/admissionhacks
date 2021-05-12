@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:admissionhacks/services/database.dart';
-import 'package:admissionhacks/widget/widget.dart';
+import 'package:admissionhacks/widgets/widget.dart';
 
 class AddQuestion extends StatefulWidget {
   final String quizId;

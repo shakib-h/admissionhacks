@@ -4,7 +4,7 @@ import 'package:admissionhacks/helper/constants.dart';
 import 'package:admissionhacks/services/auth.dart';
 import 'package:admissionhacks/services/database.dart';
 import 'package:admissionhacks/views/home.dart';
-import 'package:admissionhacks/widget/widget.dart';
+import 'package:admissionhacks/widgets/widget.dart';
 
 class SignUp extends StatefulWidget {
   final Function toogleView;

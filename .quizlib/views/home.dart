@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:admissionhacks/services/database.dart';
 import 'package:admissionhacks/views/create_quiz.dart';
 import 'package:admissionhacks/views/quiz_play.dart';
-import 'package:admissionhacks/widget/widget.dart';
+import 'package:admissionhacks/widgets/widget.dart';
 
 class Home extends StatefulWidget {
   @override
