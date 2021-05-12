@@ -5,10 +5,10 @@ import 'package:progress_dialog/progress_dialog.dart';
 
 import '../constants.dart';
 
-String validateName(String value) {
+String? validateName(String? value) {
   String pattern = r'(^[a-zA-Z ]*$)';
   RegExp regExp = new RegExp(pattern);
-  if (value.length == 0) {
+  if (value!.length == 0) {
     return "Name is required";
   } else if (!regExp.hasMatch(value)) {
     return "Name must be a-z and A-Z";
@@ -16,10 +16,10 @@ String validateName(String value) {
   return null;
 }
 
-String validateMobile(String value) {
+String? validateMobile(String? value) {
   String pattern = r'(^[0-9]*$)';
   RegExp regExp = new RegExp(pattern);
-  if (value.length == 0) {
+  if (value!.length == 0) {
     return "Mobile phone number is required";
   } else if (!regExp.hasMatch(value)) {
     return "Mobile phone number must contain only digits";
@@ -27,24 +27,24 @@ String validateMobile(String value) {
   return null;
 }
 
-String validatePassword(String value) {
-  if (value.length < 6)
+String? validatePassword(String? value) {
+  if (value!.length < 6)
     return 'Password must be more than 5 characters';
   else
     return null;
 }
 
-String validateEmail(String value) {
+String? validateEmail(String? value) {
   Pattern pattern =
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-  RegExp regex = new RegExp(pattern);
-  if (!regex.hasMatch(value))
+  RegExp regex = new RegExp(pattern.toString());
+  if (!regex.hasMatch(value!))
     return 'Enter Valid Email';
   else
     return null;
 }
 
-String validateConfirmPassword(String password, String confirmPassword) {
+String? validateConfirmPassword(String password, String confirmPassword) {
   print("$password $confirmPassword");
   if (password != confirmPassword) {
     return 'Password doesn\'t match';
@@ -56,12 +56,12 @@ String validateConfirmPassword(String password, String confirmPassword) {
 }
 
 //helper method to show progress
-ProgressDialog progressDialog;
+ProgressDialog? progressDialog;
 
 showProgress(BuildContext context, String message, bool isDismissible) async {
   progressDialog = new ProgressDialog(context,
       type: ProgressDialogType.Normal, isDismissible: isDismissible);
-  progressDialog.style(
+  progressDialog!.style(
       message: message,
       borderRadius: 10.0,
       backgroundColor: Color(COLOR_PRIMARY),
@@ -74,15 +74,15 @@ showProgress(BuildContext context, String message, bool isDismissible) async {
       insetAnimCurve: Curves.easeInOut,
       messageTextStyle: TextStyle(
           color: Colors.white, fontSize: 19.0, fontWeight: FontWeight.w600));
-  await progressDialog.show();
+  await progressDialog!.show();
 }
 
 updateProgress(String message) {
-  progressDialog.update(message: message);
+  progressDialog!.update(message: message);
 }
 
 hideProgress() async {
-  await progressDialog.hide();
+  await progressDialog!.hide();
 }
 
 //helper method to show alert dialog
@@ -124,7 +124,7 @@ push(BuildContext context, Widget destination) {
 pushAndRemoveUntil(BuildContext context, Widget destination, bool predict) {
   Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(builder: (context) => destination),
-          (Route<dynamic> route) => predict);
+      (Route<dynamic> route) => predict);
 }
 
 Widget displayCircleImage(String picUrl, double size, hasBorder) =>

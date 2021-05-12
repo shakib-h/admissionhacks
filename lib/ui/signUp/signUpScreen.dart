@@ -12,7 +12,7 @@ import 'package:admissionhacks/services/helper.dart';
 import 'package:admissionhacks/ui/home/homeScreen.dart';
 import 'package:image_picker/image_picker.dart';
 
-File _image;
+File? _image;
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -24,7 +24,7 @@ class _SignUpState extends State<SignUpScreen> {
   TextEditingController _passwordController = new TextEditingController();
   GlobalKey<FormState> _key = new GlobalKey();
   AutovalidateMode _validate = AutovalidateMode.disabled;
-  String firstName, lastName, email, mobile, password, confirmPassword;
+  String? firstName, lastName, email, mobile, password, confirmPassword;
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,7 @@ class _SignUpState extends State<SignUpScreen> {
     }
     if (response.file != null) {
       setState(() {
-        _image = File(response.file.path);
+        _image = File(response.file!.path);
       });
     }
   }
@@ -75,7 +75,7 @@ class _SignUpState extends State<SignUpScreen> {
           isDefaultAction: false,
           onPressed: () async {
             Navigator.pop(context);
-            PickedFile image =
+            PickedFile? image =
                 await _imagePicker.getImage(source: ImageSource.gallery);
             if (image != null)
               setState(() {
@@ -88,7 +88,7 @@ class _SignUpState extends State<SignUpScreen> {
           isDestructiveAction: false,
           onPressed: () async {
             Navigator.pop(context);
-            PickedFile image =
+            PickedFile? image =
                 await _imagePicker.getImage(source: ImageSource.camera);
             if (image != null)
               setState(() {
@@ -138,7 +138,7 @@ class _SignUpState extends State<SignUpScreen> {
                             fit: BoxFit.cover,
                           )
                         : Image.file(
-                            _image,
+                            _image!,
                             fit: BoxFit.cover,
                           ),
                   ),
@@ -163,7 +163,7 @@ class _SignUpState extends State<SignUpScreen> {
                     const EdgeInsets.only(top: 16.0, right: 8.0, left: 8.0),
                 child: TextFormField(
                     validator: validateName,
-                    onSaved: (String val) {
+                    onSaved: (String? val) {
                       firstName = val;
                     },
                     textInputAction: TextInputAction.next,
@@ -187,7 +187,7 @@ class _SignUpState extends State<SignUpScreen> {
                     const EdgeInsets.only(top: 16.0, right: 8.0, left: 8.0),
                 child: TextFormField(
                     validator: validateName,
-                    onSaved: (String val) {
+                    onSaved: (String? val) {
                       lastName = val;
                     },
                     textInputAction: TextInputAction.next,
@@ -214,7 +214,7 @@ class _SignUpState extends State<SignUpScreen> {
                     textInputAction: TextInputAction.next,
                     onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
                     validator: validateMobile,
-                    onSaved: (String val) {
+                    onSaved: (String? val) {
                       mobile = val;
                     },
                     decoration: InputDecoration(
@@ -239,7 +239,7 @@ class _SignUpState extends State<SignUpScreen> {
                     textInputAction: TextInputAction.next,
                     onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
                     validator: validateEmail,
-                    onSaved: (String val) {
+                    onSaved: (String? val) {
                       email = val;
                     },
                     decoration: InputDecoration(
@@ -264,7 +264,7 @@ class _SignUpState extends State<SignUpScreen> {
                   onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
                   controller: _passwordController,
                   validator: validatePassword,
-                  onSaved: (String val) {
+                  onSaved: (String? val) {
                     password = val;
                   },
                   style: TextStyle(height: 0.8, fontSize: 18.0),
@@ -293,8 +293,8 @@ class _SignUpState extends State<SignUpScreen> {
                 },
                 obscureText: true,
                 validator: (val) =>
-                    validateConfirmPassword(_passwordController.text, val),
-                onSaved: (String val) {
+                    validateConfirmPassword(_passwordController.text, val!),
+                onSaved: (String? val) {
                   confirmPassword = val;
                 },
                 style: TextStyle(height: 0.8, fontSize: 18.0),
@@ -338,30 +338,30 @@ class _SignUpState extends State<SignUpScreen> {
   }
 
   _sendToServer() async {
-    if (_key.currentState.validate()) {
-      _key.currentState.save();
+    if (_key.currentState!.validate()) {
+      _key.currentState!.save();
       showProgress(context, 'Creating new account, Please wait...', false);
       var profilePicUrl = '';
       try {
         auth.UserCredential result = await auth.FirebaseAuth.instance
             .createUserWithEmailAndPassword(
-                email: email.trim(), password: password.trim());
+                email: email!.trim(), password: password!.trim());
         if (_image != null) {
           updateProgress('Uploading image, Please wait...');
           profilePicUrl = await FireStoreUtils()
-              .uploadUserImageToFireStorage(_image, result.user.uid);
+              .uploadUserImageToFireStorage(_image!, result.user!.uid);
         }
         User user = User(
-            email: email,
-            firstName: firstName,
-            phoneNumber: mobile,
-            userID: result.user.uid,
+            email: email!,
+            firstName: firstName!,
+            phoneNumber: mobile!,
+            userID: result.user!.uid,
             active: true,
-            lastName: lastName,
+            lastName: lastName!,
             profilePictureURL: profilePicUrl);
         await FireStoreUtils.firestore
             .collection(USERS)
-            .doc(result.user.uid)
+            .doc(result.user!.uid)
             .set(user.toJson());
         hideProgress();
         MyAppState.currentUser = user;

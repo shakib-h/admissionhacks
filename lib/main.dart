@@ -21,8 +21,8 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> with WidgetsBindingObserver {
-  static User currentUser;
-  StreamSubscription tokenStream;
+  static User? currentUser;
+  StreamSubscription? tokenStream;
 
   // Set default `_initialized` and `_error` state to false
   bool _initialized = false;
@@ -91,13 +91,13 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void initState() {
     initializeFlutterFire();
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance!.addObserver(this);
     super.initState();
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
+    WidgetsBinding.instance!.removeObserver(this);
     super.dispose();
   }
 
@@ -106,15 +106,15 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
     if (auth.FirebaseAuth.instance.currentUser != null && currentUser != null) {
       if (state == AppLifecycleState.paused) {
         //user offline
-        tokenStream.pause();
-        currentUser.active = false;
-        currentUser.lastOnlineTimestamp = Timestamp.now();
-        FireStoreUtils.updateCurrentUser(currentUser);
+        tokenStream!.pause();
+        currentUser!.active = false;
+        currentUser!.lastOnlineTimestamp = Timestamp.now();
+        FireStoreUtils.updateCurrentUser(currentUser!);
       } else if (state == AppLifecycleState.resumed) {
         //user online
-        tokenStream.resume();
-        currentUser.active = true;
-        FireStoreUtils.updateCurrentUser(currentUser);
+        tokenStream!.resume();
+        currentUser!.active = true;
+        FireStoreUtils.updateCurrentUser(currentUser!);
       }
     }
   }
@@ -133,9 +133,9 @@ class OnBoardingState extends State<OnBoarding> {
     bool finishedOnBoarding = (prefs.getBool(FINISHED_ON_BOARDING) ?? false);
 
     if (finishedOnBoarding) {
-      auth.User firebaseUser = auth.FirebaseAuth.instance.currentUser;
+      auth.User firebaseUser = auth.FirebaseAuth.instance.currentUser!;
       if (firebaseUser != null) {
-        User user = await FireStoreUtils().getCurrentUser(firebaseUser.uid);
+        User user = (await FireStoreUtils().getCurrentUser(firebaseUser.uid))!;
         if (user != null) {
           MyAppState.currentUser = user;
           pushReplacement(context, new HomeScreen(user: user));

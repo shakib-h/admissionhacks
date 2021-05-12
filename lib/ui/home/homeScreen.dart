@@ -14,7 +14,7 @@ import 'package:admissionhacks/ui/auth/authScreen.dart';
 class HomeScreen extends StatefulWidget {
   final User user;
 
-  HomeScreen({Key key, @required this.user}) : super(key: key);
+  HomeScreen({Key? key, required this.user}) : super(key: key);
 
   @override
   State createState() {

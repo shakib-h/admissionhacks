@@ -9,11 +9,11 @@ class FireStoreUtils {
   static FirebaseFirestore firestore = FirebaseFirestore.instance;
   Reference storage = FirebaseStorage.instance.ref();
 
-  Future<User> getCurrentUser(String uid) async {
+  Future<User?> getCurrentUser(String uid) async {
     DocumentSnapshot userDocument =
         await firestore.collection(USERS).doc(uid).get();
     if (userDocument != null && userDocument.exists) {
-      return User.fromJson(userDocument.data());
+      return User.fromJson(userDocument.data()!);
     } else {
       return null;
     }

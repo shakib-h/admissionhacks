@@ -62,8 +62,8 @@ class _LoginScreen extends State<LoginScreen> {
                     textAlignVertical: TextAlignVertical.center,
                     textInputAction: TextInputAction.next,
                     validator: validateEmail,
-                    onSaved: (String val) {
-                      email = val;
+                    onSaved: (String? val) {
+                      email = val!;
                     },
                     onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
                     style: TextStyle(fontSize: 18.0),
@@ -91,8 +91,8 @@ class _LoginScreen extends State<LoginScreen> {
                 child: TextFormField(
                     textAlignVertical: TextAlignVertical.center,
                     validator: validatePassword,
-                    onSaved: (String val) {
-                      password = val;
+                    onSaved: (String? val) {
+                      password = val!;
                     },
                     onFieldSubmitted: (password) async {
                       await login();
@@ -180,11 +180,11 @@ class _LoginScreen extends State<LoginScreen> {
                                 auth.FacebookAuthProvider.credential(
                                     result.accessToken.token))
                             .then((auth.UserCredential authResult) async {
-                          User user = await _fireStoreUtils
-                              .getCurrentUser(authResult.user.uid);
+                          User? user = await _fireStoreUtils
+                              .getCurrentUser(authResult.user!.uid);
                           if (user == null) {
                             _createUserFromFacebookLogin(
-                                result, authResult.user.uid);
+                                result, authResult.user!.uid);
                           } else {
                             _syncUserDataWithFacebookData(result, user);
                           }
@@ -211,10 +211,10 @@ class _LoginScreen extends State<LoginScreen> {
   }
 
   login() async {
-    if (_key.currentState.validate()) {
-      _key.currentState.save();
+    if (_key.currentState!.validate()) {
+      _key.currentState!.save();
       showProgress(context, 'Logging in, please wait...', false);
-      User user = await loginWithUserNameAndPassword();
+      User? user = await loginWithUserNameAndPassword();
       if (user != null)
         pushAndRemoveUntil(context, HomeScreen(user: user), false);
     } else {
@@ -224,24 +224,24 @@ class _LoginScreen extends State<LoginScreen> {
     }
   }
 
-  Future<User> loginWithUserNameAndPassword() async {
+  Future<User?> loginWithUserNameAndPassword() async {
     try {
       auth.UserCredential result = await auth.FirebaseAuth.instance
           .signInWithEmailAndPassword(
               email: email.trim(), password: password.trim());
       DocumentSnapshot documentSnapshot = await FireStoreUtils.firestore
           .collection(USERS)
-          .doc(result.user.uid)
+          .doc(result.user!.uid)
           .get();
-      User user;
+      User? user;
       if (documentSnapshot != null && documentSnapshot.exists) {
-        user = User.fromJson(documentSnapshot.data());
+        user = User.fromJson(documentSnapshot.data()!);
         user.active = true;
         await FireStoreUtils.updateCurrentUser(user);
         hideProgress();
         MyAppState.currentUser = user;
       }
-      return user;
+      return user!;
     } on auth.FirebaseAuthException catch (exception) {
       hideProgress();
       switch ((exception).code) {
@@ -278,8 +278,9 @@ class _LoginScreen extends State<LoginScreen> {
   void _createUserFromFacebookLogin(
       FacebookLoginResult result, String userID) async {
     final token = result.accessToken.token;
-    final graphResponse = await http.get('https://graph.facebook.com/v2'
-        '.12/me?fields=name,first_name,last_name,email,picture.type(large)&access_token=$token');
+    final graphResponse = await http.get(Uri.parse(
+        'https://graph.facebook.com/v2'
+        '.12/me?fields=name,first_name,last_name,email,picture.type(large)&access_token=$token'));
     final profile = json.decode(graphResponse.body);
     User user = User(
         firstName: profile['first_name'],
@@ -302,8 +303,9 @@ class _LoginScreen extends State<LoginScreen> {
   void _syncUserDataWithFacebookData(
       FacebookLoginResult result, User user) async {
     final token = result.accessToken.token;
-    final graphResponse = await http.get('https://graph.facebook.com/v2'
-        '.12/me?fields=name,first_name,last_name,email,picture.type(large)&access_token=$token');
+    final graphResponse = await http.get(Uri.parse(
+        'https://graph.facebook.com/v2'
+        '.12/me?fields=name,first_name,last_name,email,picture.type(large)&access_token=$token'));
     final profile = json.decode(graphResponse.body);
     user.profilePictureURL = profile['picture']['data']['url'];
     user.firstName = profile['first_name'];
