@@ -31,7 +31,7 @@ class User {
       this.userID = '',
       this.profilePictureURL = ''})
       : this.lastOnlineTimestamp = lastOnlineTimestamp ?? Timestamp.now(),
-        this.appIdentifier = 'Flutter Login Screen ${Platform.operatingSystem}';
+        this.appIdentifier = 'AdmissionHacks App ${Platform.operatingSystem}';
 
   String fullName() {
     return '$firstName $lastName';

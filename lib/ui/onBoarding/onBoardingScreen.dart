@@ -3,6 +3,7 @@ import 'package:admissionhacks/constants.dart';
 import 'package:admissionhacks/services/helper.dart';
 import 'package:admissionhacks/ui/auth/authScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   @override
@@ -61,15 +62,15 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             padding: const EdgeInsets.only(bottom: 50.0),
             child: Align(
               alignment: Alignment.bottomCenter,
-              // child: SmoothPageIndicator(
-              //   controller: pageController,
-              //   count: _titlesList.length,
-              //   effect: ScrollingDotsEffect(
-              //       activeDotColor: Colors.white,
-              //       dotColor: Colors.grey.shade400,
-              //       dotWidth: 8,
-              //       dotHeight: 8),
-              // ),
+              child: SmoothPageIndicator(
+                controller: pageController,
+                count: _titlesList.length,
+                effect: ScrollingDotsEffect(
+                    activeDotColor: Colors.white,
+                    dotColor: Colors.grey.shade400,
+                    dotWidth: 8,
+                    dotHeight: 8),
+              ),
             ),
           )
         ],

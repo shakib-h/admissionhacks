@@ -133,7 +133,7 @@ class OnBoardingState extends State<OnBoarding> {
     bool finishedOnBoarding = (prefs.getBool(FINISHED_ON_BOARDING) ?? false);
 
     if (finishedOnBoarding) {
-      auth.User firebaseUser = auth.FirebaseAuth.instance.currentUser!;
+      auth.User? firebaseUser = auth.FirebaseAuth.instance.currentUser;
       if (firebaseUser != null) {
         User? user = await FireStoreUtils().getCurrentUser(firebaseUser.uid);
         if (user != null) {

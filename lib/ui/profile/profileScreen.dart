@@ -11,21 +11,21 @@ import 'package:admissionhacks/services/authenticate.dart';
 import 'package:admissionhacks/services/helper.dart';
 import 'package:admissionhacks/ui/auth/authScreen.dart';
 
-class HomeScreen extends StatefulWidget {
+class ProfileScreen extends StatefulWidget {
   final User user;
 
-  HomeScreen({Key? key, required this.user}) : super(key: key);
+  ProfileScreen({Key? key, required this.user}) : super(key: key);
 
   @override
   State createState() {
-    return _HomeState(user);
+    return _ProfileState(user);
   }
 }
 
-class _HomeState extends State<HomeScreen> {
+class _ProfileState extends State<ProfileScreen> {
   final User user;
 
-  _HomeState(this.user);
+  _ProfileState(this.user);
 
   @override
   Widget build(BuildContext context) {
@@ -73,10 +73,11 @@ class _HomeState extends State<HomeScreen> {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(Icons.people),
+            icon: Icon(Icons.shopping_cart),
             tooltip: 'Open shopping cart',
             onPressed: () {
               // handle the press
+              push(context, ProfileScreen(user: user));
             },
           ),
         ],

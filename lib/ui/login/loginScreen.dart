@@ -13,6 +13,7 @@ import 'package:admissionhacks/model/user.dart';
 import 'package:admissionhacks/services/authenticate.dart';
 import 'package:admissionhacks/services/helper.dart';
 import 'package:admissionhacks/ui/home/homeScreen.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 
 final _fireStoreUtils = FireStoreUtils();
@@ -39,6 +40,60 @@ class _LoginScreen extends State<LoginScreen> {
       ),
       body: Column(
         children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 40.0, left: 40.0, bottom: 20),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(minWidth: double.infinity),
+              child: RaisedButton.icon(
+                label: Text(
+                  'Google Login',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                icon: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Image.asset(
+                    'assets/images/facebook_logo.png',
+                    color: Colors.white,
+                    height: 30,
+                    width: 30,
+                  ),
+                ),
+                color: Color(FACEBOOK_BUTTON_COLOR),
+                textColor: Colors.white,
+                splashColor: Color(FACEBOOK_BUTTON_COLOR),
+                onPressed: () async {
+                  showProgress(context, 'Logging in, please wait...', false);
+                  final auth.FirebaseAuth _firebaseAuth =
+                      auth.FirebaseAuth.instance;
+                  final GoogleSignIn _googleSignIn = new GoogleSignIn();
+
+                  final GoogleSignInAccount? googleSignInAccount =
+                      await _googleSignIn.signIn();
+
+                  final GoogleSignInAuthentication googleSignInAuthentication =
+                      await googleSignInAccount!.authentication;
+
+                  final auth.AuthCredential credential =
+                      auth.GoogleAuthProvider.credential(
+                          idToken: googleSignInAuthentication.idToken,
+                          accessToken: googleSignInAuthentication.accessToken);
+
+                  auth.UserCredential result =
+                      await _firebaseAuth.signInWithCredential(credential);
+                  User? user =
+                      await _fireStoreUtils.getCurrentUser(result.user!.uid);
+                  if (user == null) {
+                    _createUserFromGoogleLogin(result, result.user!.uid);
+                  } else {
+                    _syncUserDataWithGoogleData(result, user);
+                  }
+                },
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25.0),
+                    side: BorderSide(color: Color(FACEBOOK_BUTTON_COLOR))),
+              ),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(32.0),
             child: Center(
@@ -313,4 +368,39 @@ class _LoginScreen extends State<LoginScreen> {
   //   hideProgress();
   //   pushAndRemoveUntil(context, HomeScreen(user: user), false);
   // }
+
+  void _createUserFromGoogleLogin(
+      auth.UserCredential result, String userID) async {
+    final profile = result.user!;
+    User user = User(
+        firstName: profile.displayName!,
+        lastName: profile.displayName!,
+        email: profile.email!,
+        profilePictureURL: profile.photoURL!,
+        active: true,
+        userID: userID);
+    await FireStoreUtils.firestore
+        .collection(USERS)
+        .doc(userID)
+        .set(user.toJson())
+        .then((onValue) {
+      MyAppState.currentUser = user;
+      hideProgress();
+      pushAndRemoveUntil(context, HomeScreen(user: user), false);
+    });
+  }
+
+  void _syncUserDataWithGoogleData(
+      auth.UserCredential result, User user) async {
+    final profile = result.user!;
+    user.profilePictureURL = profile.photoURL!;
+    user.firstName = profile.displayName!;
+    user.lastName = profile.displayName!;
+    user.email = profile.email!;
+    user.active = true;
+    await FireStoreUtils.updateCurrentUser(user);
+    MyAppState.currentUser = user;
+    hideProgress();
+    pushAndRemoveUntil(context, HomeScreen(user: user), false);
+  }
 }
