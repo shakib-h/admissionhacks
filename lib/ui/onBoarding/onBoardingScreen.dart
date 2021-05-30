@@ -32,7 +32,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     Icons.developer_mode,
     Icons.layers,
     Icons.account_circle,
-    'assets/images/ic_launcher_round.png',
+    'assets/images/logo_splash.png',
     Icons.code
   ];
   int _currentIndex = 0;

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:admissionhacks/ui/splash/splashScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_core/firebase_core.dart';
@@ -9,11 +10,17 @@ import 'package:admissionhacks/model/user.dart';
 import 'package:admissionhacks/services/authenticate.dart';
 import 'package:admissionhacks/services/helper.dart';
 import 'package:admissionhacks/ui/auth/authScreen.dart';
-import 'package:admissionhacks/ui/home/homeScreen.dart';
+import 'package:admissionhacks/ui/main/mainScreen.dart';
 import 'package:admissionhacks/ui/onBoarding/onBoardingScreen.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main() => runApp(new MyApp());
+void main() {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+  ));
+  runApp(new MyApp());
+}
 
 class MyApp extends StatefulWidget {
   @override
@@ -73,17 +80,17 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
     // Show a loader until FlutterFire is initialized
     if (!_initialized) {
-      return Container(
-        color: Colors.white,
-        child: Center(
-          child: CircularProgressIndicator(),
-        ),
-      );
+      return SplashScreen();
     }
 
     return MaterialApp(
-        theme: ThemeData(accentColor: Color(COLOR_PRIMARY)),
+        themeMode: ThemeMode.light,
+        theme: ThemeData(
+          accentColor: Color(COLOR_PRIMARY),
+          fontFamily: "Poppins",
+        ),
         debugShowCheckedModeBanner: false,
+        title: 'Admission Hacks',
         color: Color(COLOR_PRIMARY),
         home: OnBoarding());
   }
@@ -159,12 +166,8 @@ class OnBoardingState extends State<OnBoarding> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(COLOR_PRIMARY),
-      body: Center(
-        child: CircularProgressIndicator(
-          backgroundColor: Colors.white,
-        ),
-      ),
+      //backgroundColor: Color(COLOR_PRIMARY),
+      body: SplashScreen(),
     );
   }
 }

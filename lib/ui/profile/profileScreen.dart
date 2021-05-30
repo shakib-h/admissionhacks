@@ -30,57 +30,14 @@ class _ProfileState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Text(
-                'Drawer Header',
-                style: TextStyle(color: Colors.white),
-              ),
-              decoration: BoxDecoration(
-                color: Color(COLOR_PRIMARY),
-              ),
-            ),
-            ListTile(
-              title: Text(
-                'Logout',
-                style: TextStyle(color: Colors.black),
-              ),
-              leading: Transform.rotate(
-                  angle: pi / 1,
-                  child: Icon(Icons.exit_to_app, color: Colors.black)),
-              onTap: () async {
-                user.active = false;
-                user.lastOnlineTimestamp = Timestamp.now();
-                FireStoreUtils.updateCurrentUser(user);
-                await auth.FirebaseAuth.instance.signOut();
-                MyAppState.currentUser = null;
-                pushAndRemoveUntil(context, AuthScreen(), false);
-              },
-            ),
-          ],
-        ),
-      ),
       appBar: AppBar(
         title: Text(
-          'Home',
+          'Profile',
           style: TextStyle(color: Colors.black),
         ),
         iconTheme: IconThemeData(color: Colors.black),
         backgroundColor: Colors.white,
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.shopping_cart),
-            tooltip: 'Open shopping cart',
-            onPressed: () {
-              // handle the press
-              push(context, ProfileScreen(user: user));
-            },
-          ),
-        ],
       ),
       body: Center(
         child: Column(
@@ -104,6 +61,20 @@ class _ProfileState extends State<ProfileScreen> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(user.userID),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                child: Text("Logout"),
+                onPressed: () async {
+                  user.active = false;
+                  user.lastOnlineTimestamp = Timestamp.now();
+                  FireStoreUtils.updateCurrentUser(user);
+                  await auth.FirebaseAuth.instance.signOut();
+                  MyAppState.currentUser = null;
+                  pushAndRemoveUntil(context, AuthScreen(), false);
+                },
+              ),
             ),
           ],
         ),

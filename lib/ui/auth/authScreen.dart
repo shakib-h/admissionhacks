@@ -1,3 +1,4 @@
+import 'package:admissionhacks/ui/signUp/signUpScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:admissionhacks/constants.dart';
 import 'package:admissionhacks/services/helper.dart';
@@ -58,6 +59,27 @@ class AuthScreen extends StatelessWidget {
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.only(
+                right: 40.0, left: 40.0, top: 20, bottom: 20),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(minWidth: double.infinity),
+              child: FlatButton(
+                child: Text(
+                  'Sign Up',
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Color(COLOR_PRIMARY)),
+                ),
+                onPressed: () => push(context, new SignUpScreen()),
+                padding: EdgeInsets.only(top: 12, bottom: 12),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25.0),
+                    side: BorderSide(color: Color(COLOR_PRIMARY))),
+              ),
+            ),
+          )
         ],
       ),
     );
