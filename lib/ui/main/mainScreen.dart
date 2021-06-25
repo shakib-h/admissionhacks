@@ -1,4 +1,6 @@
+import 'package:admissionhacks/ui/pages/admissionPage.dart';
 import 'package:admissionhacks/ui/pages/homePage.dart';
+import 'package:admissionhacks/ui/pages/newsPage.dart';
 import 'package:admissionhacks/ui/pages/profilePage.dart';
 import 'package:admissionhacks/ui/pages/studyPage.dart';
 import 'package:line_icons/line_icons.dart';
@@ -62,8 +64,10 @@ class _HomeState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final List<Widget> _pages = <Widget>[
       HomePage(),
-      ProfilePage(user: user),
+      AdmissionPage(),
       StudyPage(),
+      NewsPage(),
+      ProfilePage(user: user),
     ];
 
     return Scaffold(

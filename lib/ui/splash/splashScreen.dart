@@ -28,6 +28,7 @@ class SplashScreen extends StatelessWidget {
             child: Text(
               "Welcome to Admission Hacks",
               style: TextStyle(fontSize: 18),
+              textDirection: TextDirection.ltr,
             ),
           ),
         ),
