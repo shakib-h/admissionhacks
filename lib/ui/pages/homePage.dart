@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:flutter_carousel_slider/carousel_slider_indicators.dart';
-import 'package:bangla_utilities/bangla_utilities.dart';
+// import 'package:bangla_utilities/bangla_utilities.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -152,22 +152,15 @@ class HomePage extends StatelessWidget {
                                   children: [
                                     (start.isAfter(now))
                                         ? Text(
-                                            BanglaUtility.englishToBanglaDigit(
-                                                    englishDigit: startsIn) +
+                                            startsIn.toString() +
                                                 " দিনে শুরু হবে",
                                             //style: tListTextStyle,
                                           )
                                         : Text(
                                             (daysLeft == 0)
-                                                ? BanglaUtility
-                                                        .englishToBanglaDigit(
-                                                            englishDigit:
-                                                                hoursLeft) +
+                                                ? hoursLeft.toString() +
                                                     " ঘণ্টা বাকি"
-                                                : BanglaUtility
-                                                        .englishToBanglaDigit(
-                                                            englishDigit:
-                                                                daysLeft) +
+                                                : daysLeft.toString() +
                                                     " দিন বাকি",
                                             style: //tListTextStyle.copyWith(
                                                 TextStyle(
@@ -290,12 +283,8 @@ class HomePage extends StatelessWidget {
                               (date.isAfter(DateTime.now()))
                                   ? Text(
                                       (daysLeft == 0)
-                                          ? BanglaUtility.englishToBanglaDigit(
-                                                  englishDigit: hoursLeft) +
-                                              " ঘণ্টা বাকি"
-                                          : BanglaUtility.englishToBanglaDigit(
-                                                  englishDigit: daysLeft) +
-                                              " দিন বাকি",
+                                          ? hoursLeft.toString() + " ঘণ্টা বাকি"
+                                          : daysLeft.toString() + " দিন বাকি",
                                       style: //tListTextStyle.copyWith(
                                           TextStyle(
                                               color: (daysLeft < 5)

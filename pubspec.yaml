@@ -40,7 +40,7 @@ dependencies:
   line_icons: ^2.0.1
   google_nav_bar: ^5.0.5
   flutter_carousel_slider: ^1.0.8
-  bangla_utilities: ^1.0.0
+  #bangla_utilities: ^1.0.0
   
   # package_info_plus: ^1.0.1
   # provider: ^5.0.0

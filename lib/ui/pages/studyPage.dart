@@ -1,4 +1,5 @@
-import 'package:admissionhacks/ui/quiz/subtopicList.dart';
+import 'package:admissionhacks/ui/quiz/chapterList.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -7,100 +8,75 @@ class StudyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          margin: EdgeInsets.only(left: 20, right: 20, bottom: 20),
-          padding: EdgeInsets.all(5),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                  offset: Offset(0, 10),
-                  blurRadius: 30,
-                  color: Colors.purpleAccent),
-            ],
-          ),
-          child: FutureBuilder(
-            future: FirebaseFirestore.instance
-                .collection('topics')
-                //.orderBy('end')
-                .get(),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return LinearProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    Colors.purpleAccent,
-                  ),
-                  backgroundColor: Colors.white,
-                );
-              } else {
-                return ListView.separated(
-                  padding: EdgeInsets.zero,
-                  shrinkWrap: true,
-                  separatorBuilder: (context, index) => Divider(
-                    indent: 10,
-                    endIndent: 10,
-                    color: Colors.purpleAccent,
-                    height: 0,
-                  ),
-                  physics: BouncingScrollPhysics(),
-                  itemCount: (snapshot.data! as QuerySnapshot).docs.length,
-                  itemBuilder: (_, index) {
-                    QueryDocumentSnapshot quizData =
-                        (snapshot.data! as QuerySnapshot).docs[index];
-                    String title = quizData['name'];
-                    String subtitle = quizData['desc'];
-                    String id = quizData['id'];
-                    String path = quizData.reference.id;
-                    return Material(
-                      color: Colors.transparent,
-                      child: ListTile(
-                        dense: true,
-                        title: Text(
-                          title,
-                          //style: tListTextStyle,
+        FutureBuilder(
+          future: FirebaseFirestore.instance
+              .collection('subjects')
+              //.orderBy('end')
+              .get(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return LinearProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  Colors.purpleAccent,
+                ),
+                backgroundColor: Colors.white,
+              );
+            } else {
+              return GridView.builder(
+                padding: EdgeInsets.all(20),
+                shrinkWrap: true,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 2 / 2.5,
+                  crossAxisSpacing: 20,
+                  mainAxisSpacing: 20,
+                ),
+                physics: BouncingScrollPhysics(),
+                itemCount: (snapshot.data! as QuerySnapshot).docs.length,
+                itemBuilder: (_, index) {
+                  QueryDocumentSnapshot quizData =
+                      (snapshot.data! as QuerySnapshot).docs[index];
+                  String name = quizData['name'];
+                  String subtitle = quizData['desc'];
+                  String subject = quizData['subject'];
+                  String path = quizData.reference.id;
+                  return Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    margin: EdgeInsets.zero,
+                    child: Ink(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: CachedNetworkImageProvider(
+                            'https://images.unsplash.com/photo-1579546929662-711aa81148cf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80',
+                          ),
                         ),
-                        subtitle: (subtitle.isNotEmpty)
-                            ? Text(
-                                subtitle,
-                              )
-                            : null,
-                        trailing: TextButton(
-                          onPressed: null,
-                          child: Text(
-                            "START",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          style: TextButton.styleFrom(
-                            backgroundColor: Colors.black,
-                            padding: EdgeInsets.zero,
-                            visualDensity:
-                                VisualDensity(horizontal: 0, vertical: -2),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                            ),
-                          ),
+                      ),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(5.0),
+                        child: Container(
+                          padding: EdgeInsets.all(0),
+                          child: Text(name),
                         ),
                         onTap: () {
-                          debugPrint(id);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => SubtopicList(
-                                id: id,
-                                path: path,
-                                topic: title,
-                              ),
+                              builder: (context) => ChapterList(
+                                  subject: subject, path: path, title: name),
                             ),
                           );
                         },
                       ),
-                    );
-                  },
-                );
-              }
-            },
-          ),
+                    ),
+                  );
+                },
+              );
+            }
+          },
         ),
       ],
     );
