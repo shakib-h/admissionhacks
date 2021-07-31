@@ -1,16 +1,13 @@
-import 'package:admissionhacks/ui/quiz/quizPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class QuizList extends StatelessWidget {
+class QuizPage extends StatelessWidget {
   final String title;
-  final String subject;
-  final int chapter;
-  const QuizList({
+  final String path;
+  const QuizPage({
     Key? key,
     required this.title,
-    required this.subject,
-    required this.chapter,
+    required this.path,
   }) : super(key: key);
 
   @override
@@ -33,8 +30,8 @@ class QuizList extends StatelessWidget {
           FutureBuilder(
             future: FirebaseFirestore.instance
                 .collection('quizzes')
-                .where("subject", isEqualTo: subject)
-                .where("chapter", isEqualTo: chapter)
+                .doc(path)
+                .collection('qna')
                 .get(),
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
@@ -59,22 +56,25 @@ class QuizList extends StatelessWidget {
                   itemBuilder: (_, index) {
                     QueryDocumentSnapshot quizData =
                         (snapshot.data! as QuerySnapshot).docs[index];
-                    String quizTitle = quizData['title'];
-                    String subtitle = "sub";
-                    String path = quizData.reference.id;
+                    String question = quizData['q'];
+                    List<String> answers = List.from(quizData['a']);
                     return Material(
                       color: Colors.transparent,
                       child: ListTile(
                         dense: true,
                         title: Text(
-                          quizTitle,
+                          question,
                           //style: tListTextStyle,
                         ),
-                        subtitle: (subtitle.isNotEmpty)
-                            ? Text(
-                                subtitle,
-                              )
-                            : null,
+                        subtitle: Text(
+                          answers[0] +
+                              " " +
+                              answers[1] +
+                              " " +
+                              answers[2] +
+                              " " +
+                              answers[3],
+                        ),
                         trailing: TextButton(
                           onPressed: null,
                           child: Text(
@@ -92,13 +92,9 @@ class QuizList extends StatelessWidget {
                           ),
                         ),
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  QuizPage(title: quizTitle, path: path),
-                            ),
-                          );
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("Starting " + title + " quiz."),
+                          ));
                         },
                       ),
                     );
